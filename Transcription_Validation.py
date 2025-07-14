@@ -13,7 +13,53 @@ Add Validation for the following fields
 - Score: TBD on what our metrics are.
 - But talked about score being not a way of determining how "Good" something is but how "bad" and can be used for sorting
 """
+#Here is the Sheet we have been working on
 
+"""
+# Validation criteria
+VALIDATION_RULES = {
+    'botanist_id': {
+        'type': 'match',
+        'source': 'F_party_botanist_id',
+        'score': ['yes', 'no']
+    },
+    'name_variant': {
+        'type': 'match', 
+        'note': 'Handle multiple IRN matches for ambiguous names',
+        'score': ['yes', 'no']
+    },
+    'country': {
+        'type': 'match',
+        'score': ['yes', 'no']
+    },
+    'date': {
+        'rules': {
+            'birth_date': {
+                'range': [20, 80],  # Years after birth
+                'note': 'Must be before death date'
+            },
+            'collection_dates': {
+                'F_party': {
+                    'range': [-20, 20],  # Years +/- collection date
+                    'weight': 'high'
+                },
+                'HUH': {
+                    'range': [-30, 30]  # Years +/- collection date
+                }
+            }
+        },
+        'special_case': 'Handle 00 in four digit years'
+    },
+    'score_components': {
+        'lifetime': ['yes', 'no', 'unknown'],
+        'collecting_times': ['F', 'HUH', 'both', 'no'],
+        'collector_teams': {
+            'match_type': 'last_name',
+            'score': ['F', 'HUH', 'both', 'no']
+        }
+    }
+}
+"""
 
 
 
