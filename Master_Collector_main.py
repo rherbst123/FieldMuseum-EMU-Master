@@ -1,3 +1,21 @@
+'''
+Field Museum Master Collector Sheet
+
+Purpose:
+Creates a master collector data sheet by combining data from multiple sources:
+- countries_combined.csv (EMU data)
+    -This file is not found in the repository since it is too large but it can be found in 
+     google drive > 2025 folder > testing > Round2
+- HUH_Combined.csv (Harvard Herbaria data)
+- Botany_Parties_Author_names.xlsx (botany parties data)
+
+Key Features:
+- Standardizes collector names and IDs
+- Merges duplicate records
+- Creates comprehensive date ranges
+- Builds collector team associations
+'''
+
 import pandas as pd
 import re
 import os
@@ -6,7 +24,7 @@ from collections import defaultdict
 #Initialize master dict.
 master_collectors = defaultdict(dict)
 
-# Helper Functions
+#Helper Functions
 def clean_name(name):
     """Clean name by removing et al. and extra spaces"""
     if pd.isna(name) or not name:
@@ -73,12 +91,12 @@ def update_collector_dates(irn, years, current_year):
 
 def process_collector_row(row, col_prefix, irn):
     """Process a single collector row from countries_combined.csv"""
-    # Handle names
     collector_data = {
         'Collector_irn': irn,
         'Source_of_Information': 'countries_combined.csv'
     }
     
+    #Handle names
     name_fields = ['NamFullName', 'NamBriefName', 'NamFirst', 'NamMiddle', 'NamLast']
     for field in name_fields:
         value = row.get(f'{col_prefix}{field}', '')
@@ -445,8 +463,6 @@ def process_botany_parties_author_names(filepath):
         print(f"Error reading {filepath}: {e}")
         return
     
-    asa_num_pattern = re.compile(r'\d+')
-    
     for _, row in df.iterrows():
         # Try to match by ASA ID first
         matching_irn = None
@@ -540,7 +556,7 @@ def create_master_collector():
     process_huh_combined('HUH/HUH_Combined.csv')    
     process_botany_parties_author_names('BotanyParties/Botany_Parties_Author_names.xlsx')
     
-    # Add derived data
+    #Add data
     update_fm_date_ranges('EMU_Combined_Sheets/countries_combined.csv')
     process_collector_teams('EMU_Combined_Sheets/countries_combined.csv')
     
@@ -572,6 +588,7 @@ def create_master_collector():
     
     asa_id_cols = sorted([c for c in master_df.columns if c.startswith('ASA_Botanist_ID_')], 
                          key=lambda x: int(x.split('_')[-1]))
+    
     variant_cols = [f'Variant_name_{i}' for i in range(2, 12)]
     
     output_cols = base_cols[:3] + asa_id_cols + base_cols[3:16] + variant_cols + base_cols[16:]
@@ -581,8 +598,8 @@ def create_master_collector():
         if col not in master_df.columns:
             master_df[col] = ''
     
-    master_df[output_cols].to_csv('Master_Collector(newmain).csv', index=False)
-    print("Master_Collector(newmain).csv file created")
+    master_df[output_cols].to_csv('Master_Collector(Original).csv', index=False)
+    print("Master_Collector(Original).csv file created")
 
 if __name__ == '__main__':
     create_master_collector()

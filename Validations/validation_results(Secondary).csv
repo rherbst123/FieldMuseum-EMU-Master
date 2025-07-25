@@ -1,0 +1,43 @@
+Image_URL,barcode,collector_number,tested_name,master_name,master_irn,master_name_variants,id_match,name_match,FM_Country_match,HUH_Country_match,FM_Date_match,HUH_Date_match,collector_team_match,score
+http://fm-digital-assets.fieldmuseum.org/579/496/V0116787F.jpg,V0116787F,2,"M. Huamán (Huamán, M.)",,53206,"M. Huaman, M. Huaman",True|187597,True,True|Peru,False,True,False,True|1,Name|ID|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/579/496/V0116787F.jpg,V0116787F,3,"F. Salvador (Salvador, F.)",,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/579/496/V0116787F.jpg,V0116787F,4,"Portocarrero, O. (O. Portocarrero)",,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/579/496/V0116787F.jpg,V0116787F,5,"M. Medina (Medina, M.)",,47359,"José M. Medina C., J. M. Medina C., J. M. Medina C.
+J. M. Medina-Cota
+M. Medina
+M. Medina Cota...",False|Unlisted_M,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/579/496/V0116787F.jpg,V0116787F,5,"M. Medina (Medina, M.)",,53364,"M. Medina, M. Medina",False,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/579/496/V0116787F.jpg,V0116787F,5,"M. Medina (Medina, M.)",,180320,"M. Medina Cota, M. Medina Cota",False|Unlisted_M,True,False,False,False,False,False|No-team-data,Name
+http://fm-digital-assets.fieldmuseum.org/579/549/V0116830F.jpg,V0116830F,2,"N. Jaramillo (Jaramillo, Nestor)",,58881,"Néstor Jaramillo, N. Jaramillo",True|126883,True,True|Peru,False,True,False,False,Name|ID|Country|Date
+http://fm-digital-assets.fieldmuseum.org/579/549/V0116830F.jpg,V0116830F,3,"G. Criollo (Criollo, G.)",G. Criollo,105132,"G. Criollo, G. Criollo, G. Criollo",False|Unlisted,True,True|Peru,True|Peru,True,False,True|1,Name|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/556/377/V0118512F.jpg,V0118512F,2,D. Smith (nan),,131113,"D. Smith, D. Smith",False|Unlisted,True,True|Peru,False,True,False,False,Name|Country|Date
+http://fm-digital-assets.fieldmuseum.org/556/377/V0118512F.jpg,V0118512F,2,D. Smith (nan),,23876,"Reverend David Smith, Rev. D. Smith, David Smith",False|Unlisted,True,True|Peru,False,True,False,False,Name|Country|Date
+http://fm-digital-assets.fieldmuseum.org/556/377/V0118512F.jpg,V0118512F,2,D. Smith (nan),,110524,"Stacey D. Smith, S. D. Smith",False|Unlisted,True,True|Peru,False,False,False,False,Name|Country
+http://fm-digital-assets.fieldmuseum.org/556/377/V0118512F.jpg,V0118512F,2,D. Smith (nan),J. Donnell Smith,45645,"J. Donnell Smith, John D. Smith, J. Donnell Smith...",False|Unlisted,True,False,False,False,True|Collections_in,False,Name|Date
+http://fm-digital-assets.fieldmuseum.org/556/377/V0118512F.jpg,V0118512F,2,D. Smith (nan),,23133,"Damon A. Smith, Damon Smith",False|Unlisted,True,False,False,True,False,False,Name|Date
+http://fm-digital-assets.fieldmuseum.org/556/377/V0118512F.jpg,V0118512F,2,D. Smith (nan),,29434,"F. D. Smith, F. D. Smith, F. D. Smith",False|Unlisted,True,False,False,False,False,False|No-team-data,Name
+http://fm-digital-assets.fieldmuseum.org/556/377/V0118512F.jpg,V0118512F,3,G. Criollo D. (nan),,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/586/237/V0151495F.jpg,V0151495F,2,"R. Vásquez (Vásquez, Roberto)",Rob. Vásquez,67253,"Rob. Vásquez, Roberto Vásquez Chávez, Rob. Vasquez...",True|146893,True,True|Peru,True|Peru,True,True|Both,True|1,Name|ID|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/586/237/V0151495F.jpg,V0151495F,2,"R. Vásquez (Vásquez, Roberto)",Rod. Vásquez,67327,"Rod. Vásquez, Rodolfo Vásquez Martinez, Rod. Vasquez...",False,True,True|Peru,True|Peru,True,False,True|1,Name|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/586/237/V0151495F.jpg,V0151495F,2,"R. Vásquez (Vásquez, Roberto)",,181722,"A. Monteagudo & R. Vasquez, A. Monteagudo & R. Vasquez",False|Unlisted_M,True,True|Peru,False,False,False,False,Name|Country
+http://fm-digital-assets.fieldmuseum.org/586/237/V0151495F.jpg,V0151495F,3,"N. Jaramillo (Jaramillo, Nestor)",,58881,"Néstor Jaramillo, N. Jaramillo",True|126883,True,True|Peru,False,True,False,True|1,Name|ID|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/616/397/V0162945F.jpg,V0162945F,2,C. Díaz (nan),,19764,"Camilo Díaz Santibanez, C. Díaz S., C. Díaz
+Camilo Díaz
+CamiloDiaz
+C. Diaz S.",False|Unlisted,True,True|Peru,False,True,False,True|1,Name|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/616/397/V0162945F.jpg,V0162945F,2,C. Díaz (nan),C. Díaz,21565,"C. Díaz, Carmen Díaz, C. Díaz...",False|Unlisted,True,True|Peru,True|Peru,True,False,False,Name|Country|Date
+http://fm-digital-assets.fieldmuseum.org/616/397/V0162945F.jpg,V0162945F,2,C. Díaz (nan),,230842,"Carmen Diaz, Carmen Diaz",False|Unlisted,True,False,False,False,False,False|No-team-data,Name
+http://fm-digital-assets.fieldmuseum.org/616/397/V0162945F.jpg,V0162945F,2,C. Díaz (nan),,180206,"Carmen Díaz, C. Díaz",False|Unlisted,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/616/397/V0162945F.jpg,V0162945F,3,O. Phillips (nan),,60311,"Oliver Phillips, O. Phillips",False|Unlisted,True,True|Peru,False,True,False,True|1,Name|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/616/397/V0162945F.jpg,V0162945F,4,D. Gorchov (nan),,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/770/622/V0165347F.jpg,V0165347F,2,"J. Schunke V. (Schunke Vigo, José)",,47225,"José Schunke Vigo, J. Schunke V.",True|132033,True,True|Peru,False,True,False,False,Name|ID|Country|Date
+http://fm-digital-assets.fieldmuseum.org/753/130/V0245406F.jpg,V0245406F,2,"M. Dillon (Dillon, Michael O.)",M. O. Dillon,57143,"M. O. Dillon, Dr. Michael O. Dillon, M. O. Dillon...",True|116623,True,True|Peru,True|Peru,True,True|Lifespan,True|2,Name|ID|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/753/130/V0245406F.jpg,V0245406F,3,"J. Aronson (Aronson, James)",J. Aronson,43198,"J. Aronson, James Aronson, J. Aronson...",False|Unlisted_M,True,True|Peru,True|Peru,True,False,True|3,Name|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/753/130/V0245406F.jpg,V0245406F,4,C. Díaz (nan),,19764,"Camilo Díaz Santibanez, C. Díaz S., C. Díaz
+Camilo Díaz
+CamiloDiaz
+C. Diaz S.",False|Unlisted,True,True|Peru,False,True,False,True|2,Name|Country|Date|Team
+http://fm-digital-assets.fieldmuseum.org/753/130/V0245406F.jpg,V0245406F,4,C. Díaz (nan),C. Díaz,21565,"C. Díaz, Carmen Díaz, C. Díaz...",False|Unlisted,True,True|Peru,True|Peru,True,False,False,Name|Country|Date
+http://fm-digital-assets.fieldmuseum.org/753/130/V0245406F.jpg,V0245406F,4,C. Díaz (nan),,230842,"Carmen Diaz, Carmen Diaz",False|Unlisted,True,False,False,False,False,False|No-team-data,Name
+http://fm-digital-assets.fieldmuseum.org/753/130/V0245406F.jpg,V0245406F,4,C. Díaz (nan),,180206,"Carmen Díaz, C. Díaz",False|Unlisted,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/751/375/V0245452F.jpg,V0245452F,2,S. Tinley (nan),,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
