@@ -169,7 +169,8 @@ def get_output_filename():
     return filename
 
 if __name__ == "__main__":
-    process_csv('../Examples/Example CSV for Max - Sheet1.csv', 'cleaned_dates.csv') ##Change example path to path of new file from max with new data
+    process_csv('Examples/Example_MAX_Sheet.csv', 
+                'cleaned_dates.csv') ##Change example path to path of new file from max with new data
     output_file = get_output_filename()
     result_df = merge_collector_data(
         'cleaned_dates.csv',

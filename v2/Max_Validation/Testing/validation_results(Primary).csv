@@ -1,0 +1,313 @@
+Image_URL,barcode,collector_number,tested_name,match_rank,master_name,master_irn,master_name_variants,id_match,name_match,FM_Country_match,HUH_Country_match,FM_Date_match,HUH_Date_match,collector_team_match,score
+http://fm-digital-assets.fieldmuseum.org/2817/966/V0616027F.jpg,V0616027F,1,"nan (Contreras, Elias)",1,,27287,"Elias Contreras, E. Contreras",True|117988,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/130/V0616023F.jpg,V0616023F,1,"nan (Calzada, J.I.)",1,,47552,"Juan I. Calzada, J. I. Calzada, Ismael Calzada
+Ismael Calzada J....",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/971/V0616021F.jpg,V0616021F,1,nan (E. Matuda),1,E. Matuda,27166,"E. Matuda, Eizi Matuda, E. Matuda...",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/018/V0616022F.jpg,V0616022F,1,"nan (Matuda, E.)",1,E. Matuda,27166,"E. Matuda, Eizi Matuda, E. Matuda...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/983/V0616024F.jpg,V0616024F,1,nan (F. Menéndez L.),1,,29140,"F. Menéndez L., F. Menéndez L., F. Menéndez L.",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/072/V0616025F.jpg,V0616025F,1,"nan (Muenscher, Walter Leopold Conrad)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/113/V0616026F.jpg,V0616026F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/113/V0616026F.jpg,V0616026F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/974/V0616028F.jpg,V0616028F,1,nan (J. A. Steyermark),1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/974/V0616028F.jpg,V0616028F,1,nan (J. A. Steyermark),2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/038/V0616029F.jpg,V0616029F,1,"nan (Ortiz, Rolando Tún)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/015/V0616030F.jpg,V0616030F,1,"nan (Ortiz, Rolando Tún)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/030/V0616031F.jpg,V0616031F,1,nan (J. A. Steyermark),1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/030/V0616031F.jpg,V0616031F,1,nan (J. A. Steyermark),2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/009/V0616032F.jpg,V0616032F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/009/V0616032F.jpg,V0616032F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/027/V0616033F.jpg,V0616033F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/027/V0616033F.jpg,V0616033F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/060/V0616034F.jpg,V0616034F,1,nan (Gayle C. Jones),1,,33376,"Gayle C. Jones, G. C. Jones",True|123784,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/970/V0616035F.jpg,V0616035F,1,"nan (Contreras, Elias)",1,,27287,"Elias Contreras, E. Contreras",True|117988,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/120/V0616036F.jpg,V0616036F,1,nan (J. A. Steyermark),1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/120/V0616036F.jpg,V0616036F,1,nan (J. A. Steyermark),2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/095/V0616037F.jpg,V0616037F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/095/V0616037F.jpg,V0616037F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/005/V0616038F.jpg,V0616038F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/005/V0616038F.jpg,V0616038F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/068/V0616039F.jpg,V0616039F,1,nan (J. A. Steyermark),1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/068/V0616039F.jpg,V0616039F,1,nan (J. A. Steyermark),2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/978/V0616040F.jpg,V0616040F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/978/V0616040F.jpg,V0616040F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/065/V0616041F.jpg,V0616041F,1,"nan (Egler, Frank Edwin)",1,F. E. Egler,30900,"F. E. Egler, Frank E. Egler, F. E. Egler",True|110844,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/981/V0616042F.jpg,V0616042F,1,"nan (Steyermark, J. A.)",1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/981/V0616042F.jpg,V0616042F,1,"nan (Steyermark, J. A.)",2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/976/V0616043F.jpg,V0616043F,1,nan (J. A. Steyermark),1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/976/V0616043F.jpg,V0616043F,1,nan (J. A. Steyermark),2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/129/V0616044F.jpg,V0616044F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/129/V0616044F.jpg,V0616044F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/023/V0616045F.jpg,V0616045F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/023/V0616045F.jpg,V0616045F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/002/V0616046F.jpg,V0616046F,1,"nan (Contreras, Elias)",1,,27287,"Elias Contreras, E. Contreras",True|117988,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/969/V0616047F.jpg,V0616047F,1,nan (Gayle C. Jones),1,,33376,"Gayle C. Jones, G. C. Jones",True|123784,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/975/V0616048F.jpg,V0616048F,1,"nan (Castillo, J.J.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/067/V0616049F.jpg,V0616049F,1,nan (Antonio Molina R.),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/114/V0616050F.jpg,V0616050F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/114/V0616050F.jpg,V0616050F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/962/V0616051F.jpg,V0616051F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/962/V0616051F.jpg,V0616051F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/982/V0616052F.jpg,V0616052F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/982/V0616052F.jpg,V0616052F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/979/V0616053F.jpg,V0616053F,1,"nan (Saunders, Janice Gail)",1,,43857,"Janice G. Saunders, J. G. Saunders, J. Saunders
+
+Jan Saunders...",True|129169,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/066/V0616054F.jpg,V0616054F,1,"nan (Saunders, Janice Gail)",1,,43857,"Janice G. Saunders, J. G. Saunders, J. Saunders
+
+Jan Saunders...",True|129169,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/028/V0616055F.jpg,V0616055F,1,"nan (Bartlett, H. H.)",1,H. H. Bartlett,37196,"H. H. Bartlett, Harley H. Bartlett, H. H. Bartlett...",True|102756,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/061/V0616056F.jpg,V0616056F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/061/V0616056F.jpg,V0616056F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/055/V0616057F.jpg,V0616057F,1,"nan (Gentle, Percy H.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2817/992/V0616058F.jpg,V0616058F,1,"nan (Gentle, Percy H.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/104/V0616059F.jpg,V0616059F,1,"nan (Gentle, Percy H.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/118/V0616060F.jpg,V0616060F,1,"nan (Schipp, William August)",1,W. A. Schipp,,"W. A. Schipp, Schipp, William August, William A. Schipp...",True|102585,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/004/V0616061F.jpg,V0616061F,1,"nan (Schipp, William August)",1,W. A. Schipp,,"W. A. Schipp, Schipp, William August, William A. Schipp...",True|102585,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/988/V0616062F.jpg,V0616062F,1,"nan (Gentle, Percy H.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/049/V0616063F.jpg,V0616063F,1,"nan (Gentle, Percy H.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/110/V0616064F.jpg,V0616064F,1,"nan (Schipp, William August)",1,W. A. Schipp,,"W. A. Schipp, Schipp, William August, William A. Schipp...",True|102585,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/006/V0616065F.jpg,V0616065F,1,"nan (Meyer, William C.)",1,W. C. Meyer,,"W. C. Meyer, Meyer, W. C.",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/035/V0616066F.jpg,V0616066F,1,nan (J. B. Kinloch),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/041/V0616067F.jpg,V0616067F,1,"nan (Stevenson, Duncan)",1,,24972,"Duncan Stevenson, D. Stevenson",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/082/V0616068F.jpg,V0616068F,1,"nan (Meyer, William C.)",1,W. C. Meyer,,"W. C. Meyer, Meyer, W. C.",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/077/V0616069F.jpg,V0616069F,1,"nan (Allen, P. H.)",1,P. H. Allen,62645,"P. H. Allen, Paul H. Allen, P. H. Allen...",True|100838,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/077/V0616069F.jpg,V0616069F,1,"nan (Allen, P. H.)",2,,180119,"Paul H. Allen, P. H. Allen",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/042/V0616070F.jpg,V0616070F,1,Nilka Torres (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/125/V0616071F.jpg,V0616071F,1,"nan (Muenscher, W. C.)",1,,75807,"Walter L. C. Muenscher, W. C. Muenscher",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/069/V0616072F.jpg,V0616072F,1,"nan (Croat, Thomas Bernard)",1,T. B. Croat,72506,"T. B. Croat, Thomas B. Croat, T. B. Croat...",True|102929,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/956/V0616073F.jpg,V0616073F,1,Robert L. Dressier (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/108/V0616074F.jpg,V0616074F,1,"nan (Davidson, M. E.)",1,,56304,"Mary E. Spence Davidson, M. E. Davidson, M. E. S. Davidson
+M. E. Terry
+Mrs. Terry Davidson",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/108/V0616074F.jpg,V0616074F,1,"nan (Davidson, M. E.)",2,,180191,"M. E. Davidson, M. E. Davidson",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/047/V0616075F.jpg,V0616075F,1,Ray Carpenter (nan),1,,209447,"Ray Carpenter, R. Carpenter",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/109/V0616076F.jpg,V0616076F,1,Robert L. Dressier (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/076/V0616077F.jpg,V0616077F,1,"nan (Woodworth, Robert Hugo)",1,,67015,"Robert H. Woodworth, R. H. Woodworth",True|150082,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/025/V0616078F.jpg,V0616078F,1,"nan (Wilson, C. L.)",1,C. L. Wilson,20167,"C. L. Wilson, Carl L. Wilson, C. L. Wilson...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/098/V0616079F.jpg,V0616079F,1,Robert L. Dressier (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/138/V0616080F.jpg,V0616080F,1,"nan (Gonzalez, Jose)",1,Jose Gonzalez,,"Jose Gonzalez, Gonzalez, Jose, Jose Gonzalez",True|175946,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/138/V0616080F.jpg,V0616080F,1,"nan (Gonzalez, Jose)",2,J. Gonzalez,3999,"J. Gonzalez, Juan Gonzalez, J. Gonzalez...",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/138/V0616080F.jpg,V0616080F,1,"nan (Gonzalez, Jose)",3,,47198,"José González, J. González, Julio González",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/138/V0616080F.jpg,V0616080F,1,"nan (Gonzalez, Jose)",4,,88711,"José González, J. González",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/008/V0616081F.jpg,V0616081F,1,"nan (Haber, William A.)",1,,76608,"William A. Haber, W. A. Haber",True|108433,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/034/V0616082F.jpg,V0616082F,1,"nan (Hartshorn, G. S.)",1,,33331,"Gary S. Hartshorn, G. S. Hartshorn, G. S. Hartshorn",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/967/V0616083F.jpg,V0616083F,1,"nan (Gonzalez, Jose)",1,Jose Gonzalez,,"Jose Gonzalez, Gonzalez, Jose, Jose Gonzalez",True|175946,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/967/V0616083F.jpg,V0616083F,1,"nan (Gonzalez, Jose)",2,J. Gonzalez,3999,"J. Gonzalez, Juan Gonzalez, J. Gonzalez...",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/967/V0616083F.jpg,V0616083F,1,"nan (Gonzalez, Jose)",3,,47198,"José González, J. González, Julio González",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/967/V0616083F.jpg,V0616083F,1,"nan (Gonzalez, Jose)",4,,88711,"José González, J. González",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/084/V0616084F.jpg,V0616084F,1,"nan (Burger, W.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2817/985/V0616085F.jpg,V0616085F,1,"nan (Burger, W.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/058/V0616086F.jpg,V0616086F,1,"nan (Lent, Roy W.)",1,,67735,"Roy W. Lent, R. W. Lent",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/043/V0616087F.jpg,V0616087F,1,"nan (Williams, Louis O.)",1,L. O. Williams,52245,"L. O. Williams, Louis O. Williams, L. O. Williams...",True|116572,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/043/V0616087F.jpg,V0616087F,1,"nan (Williams, Louis O.)",2,,130573,"Louis O. Williams, L. O. Williams",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/115/V0616088F.jpg,V0616088F,1,"J. M. Orozco (Orozco, Javier)",1,,47343,"José M. Orozco Casorla, J. M. Orozco Casorla, J. M. Orozco Casorla",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/089/V0616089F.jpg,V0616089F,1,[A. M. Buner] (nan),1,,,,False|Brackets,False|Brackets,False|Brackets,False|Brackets,False|Brackets,False|Brackets,False|Brackets,BRACKETS
+http://fm-digital-assets.fieldmuseum.org/2818/056/V0616091F.jpg,V0616091F,1,"nan (Holm, Richard William)",1,R. W. Holm,66638,"R. W. Holm, Richard W. Holm, R. W. Holm",True|134858,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/014/V0616092F.jpg,V0616092F,1,"nan (Lankester, C. H.)",1,,21281,"Charles H. Lankester, C. H. Lankester",True|103290,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/133/V0616093F.jpg,V0616093F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/133/V0616093F.jpg,V0616093F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/057/V0616094F.jpg,V0616094F,1,"nan (Bunting, George Sydney)",1,G. S. Bunting,34066,"G. S. Bunting, George S. Bunting, G. S. Bunting...",True|138161,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/081/V0616095F.jpg,V0616095F,1,"nan (Gómez-Laurito, Jorge)",1,J. Gómez-Laurito,46561,"J. Gómez-Laurito, Jorge Gómez-Laurito, J. Gómez-Laurito...",True|145330,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/081/V0616095F.jpg,V0616095F,1,"nan (Gómez-Laurito, Jorge)",2,,91842,"Jorge Gómez-Laurito, J. Gómez-Laurito",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/003/V0616096F.jpg,V0616096F,1,nan (Erick Bello),1,,28023,"Erick Bello C., E. Bello C., E. Bello C.
+E. Bello...",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/039/V0616097F.jpg,V0616097F,1,"nan (Williams, Louis O.)",1,L. O. Williams,52245,"L. O. Williams, Louis O. Williams, L. O. Williams...",True|116572,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/039/V0616097F.jpg,V0616097F,1,"nan (Williams, Louis O.)",2,,130573,"Louis O. Williams, L. O. Williams",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/062/V0616098F.jpg,V0616098F,1,"nan (Burger, W.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/019/V0616099F.jpg,V0616099F,1,nan (C. Kernan),1,,18681,"C. Kernan, C. Kernan",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/031/V0616100F.jpg,V0616100F,1,"nan (Barringer, Kerry A.)",1,K. A. Barringer,49608,"K. A. Barringer, Kerry A. Barringer, K. A. Barringer",True|142001,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/960/V0616101F.jpg,V0616101F,1,nan (A. Jiménez M.),1,A. Jiménez,14316,"A. Jiménez, Alfonso Jiménez Madrigal, A. Jiménez M....",True|124153,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/965/V0616102F.jpg,V0616102F,1,"nan (Burger, W.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/111/V0616103F.jpg,V0616103F,1,nan (Alexander Frank Skutch),1,A. F. Skutch,13639,"A. F. Skutch, Alexander F. Skutch, A. F. Skutch...",True|144783,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/085/V0616104F.jpg,V0616104F,1,nan (C. Galdames),1,,18613,"Carmen Galdames, C. Galdames",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/995/V0616105F.jpg,V0616105F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/995/V0616105F.jpg,V0616105F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/984/V0616106F.jpg,V0616106F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/984/V0616106F.jpg,V0616106F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/112/V0616107F.jpg,V0616107F,1,nan (G. R. Proctor),1,G. R. Proctor,568,"G. R. Proctor, George R. Proctor, G. R. Proctor...",True|101316,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/112/V0616107F.jpg,V0616107F,1,nan (G. R. Proctor),2,,93921,"George R. Proctor, G. R. Proctor",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/103/V0616108F.jpg,V0616108F,1,"nan (Steyermark, J. A.)",1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/103/V0616108F.jpg,V0616108F,1,"nan (Steyermark, J. A.)",2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/853/V0616207F.jpg,V0616207F,1,"nan (Muenscher, W. C.)",1,,75807,"Walter L. C. Muenscher, W. C. Muenscher",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2819/235/V0616208F.jpg,V0616208F,1,"nan (Steyermark, Julian Alfred)",1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2819/235/V0616208F.jpg,V0616208F,1,"nan (Steyermark, Julian Alfred)",2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/939/V0616209F.jpg,V0616209F,1,"nan (Steyermark, Julian Alfred)",1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/939/V0616209F.jpg,V0616209F,1,"nan (Steyermark, Julian Alfred)",2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/850/V0616210F.jpg,V0616210F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/850/V0616210F.jpg,V0616210F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/983/V0616211F.jpg,V0616211F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/983/V0616211F.jpg,V0616211F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/274/V0616212F.jpg,V0616212F,1,"nan (Standley, Paul Carpenter)",1,P. C. Standley,62594,"P. C. Standley, Paul C. Standley, P. C. Standley...",True|100031,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/274/V0616212F.jpg,V0616212F,1,"nan (Standley, Paul Carpenter)",2,,101091,"Dr Paul C. Standley, P. C. Standley",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/492/V0616213F.jpg,V0616213F,1,"nan (Aguilar Hidalgo, Mercedes)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/463/V0616214F.jpg,V0616214F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/463/V0616214F.jpg,V0616214F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/655/V0616215F.jpg,V0616215F,1,"nan (Aguilar Hidalgo, Mercedes)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/748/V0616216F.jpg,V0616216F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/748/V0616216F.jpg,V0616216F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/629/V0616217F.jpg,V0616217F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/629/V0616217F.jpg,V0616217F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2819/032/V0616218F.jpg,V0616218F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2819/032/V0616218F.jpg,V0616218F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2819/084/V0616219F.jpg,V0616219F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2819/084/V0616219F.jpg,V0616219F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/434/V0616220F.jpg,V0616220F,1,"nan (Steyermark, Julian Alfred)",1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/434/V0616220F.jpg,V0616220F,1,"nan (Steyermark, Julian Alfred)",2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/048/V0616090F.jpg,V0616090F,1,[Myron Walter] (nan),1,,,,False|Brackets,False|Brackets,False|Brackets,False|Brackets,False|Brackets,False|Brackets,False|Brackets,BRACKETS
+http://fm-digital-assets.fieldmuseum.org/2818/086/V0616109F.jpg,V0616109F,1,"nan (Steyermark, Julian Alfred)",1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/086/V0616109F.jpg,V0616109F,1,"nan (Steyermark, Julian Alfred)",2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/100/V0616110F.jpg,V0616110F,1,"nan (Muenscher, W. C.)",1,,75807,"Walter L. C. Muenscher, W. C. Muenscher",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/959/V0616111F.jpg,V0616111F,1,"nan (Espinosa, A.)",1,,10394,"A. Espinosa, A. Espinosa",False|Unlisted,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/2818/116/V0616112F.jpg,V0616112F,1,"nan (Correa A., M. D.)",1,M. D. Correa A.,1804,"M. D. Correa A., Mireya D. Corrêa A., M. D. Corrêa...",True|137291,True,False,False,False,False,True|1,Name|ID|Team
+http://fm-digital-assets.fieldmuseum.org/2817/996/V0616113F.jpg,V0616113F,1,"nan (Cedillo T., R.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/016/V0616114F.jpg,V0616114F,1,nan (Guillermo Ibarra-Manriquez),1,,35209,"Guillermo Ibarra-Manríquez, G. Ibarra-Manríquez, G. Ibarra M.
+G. Ibarra...",False|Unlisted_M,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/2818/122/V0616115F.jpg,V0616115F,1,nan (Guillermo Ibarra-Manriquez),1,,35209,"Guillermo Ibarra-Manríquez, G. Ibarra-Manríquez, G. Ibarra M.
+G. Ibarra...",False|Unlisted_M,True,False,False,False,False,True|1,Name|Team
+http://fm-digital-assets.fieldmuseum.org/2818/026/V0616116F.jpg,V0616116F,1,nan (Guillermo Ibarra-Manriquez),1,,35209,"Guillermo Ibarra-Manríquez, G. Ibarra-Manríquez, G. Ibarra M.
+G. Ibarra...",False|Unlisted_M,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/2817/999/V0616117F.jpg,V0616117F,1,"nan (Calzada, J.I.)",1,,47552,"Juan I. Calzada, J. I. Calzada, Ismael Calzada
+Ismael Calzada J....",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/012/V0616118F.jpg,V0616118F,1,nan (Rafael Torres Colín),1,,65510,"Rafael Torres Colín, R. Torres C., R. Torres",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/126/V0616119F.jpg,V0616119F,1,nan (F. Ventura A.),1,,30656,"Francisco Ventura A., F. Ventura A., F. Ventura",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/136/V0616120F.jpg,V0616120F,1,nan (Guillermo Ibarra-Manriquez),1,,35209,"Guillermo Ibarra-Manríquez, G. Ibarra-Manríquez, G. Ibarra M.
+G. Ibarra...",False|Unlisted_M,True,False,False,False,False,True|1,Name|Team
+http://fm-digital-assets.fieldmuseum.org/2817/980/V0616121F.jpg,V0616121F,1,"nan (Sinaca Colin, Santiago)",1,,69414,"Santiago Sinaca Colín, S. Sinaca Colín",False|Unlisted_M,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/2818/070/V0616122F.jpg,V0616122F,1,"nan (Nee, M.)",1,M. Nee,57038,"M. Nee, Michael H. Nee, M. Nee...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/994/V0616123F.jpg,V0616123F,1,"nan (Nee, M.)",1,M. Nee,57038,"M. Nee, Michael H. Nee, M. Nee...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/017/V0616124F.jpg,V0616124F,1,nan (Guillermo Ibarra-Manriquez),1,,35209,"Guillermo Ibarra-Manríquez, G. Ibarra-Manríquez, G. Ibarra M.
+G. Ibarra...",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/972/V0616125F.jpg,V0616125F,1,nan (Guillermo Ibarra-Manriquez),1,,35209,"Guillermo Ibarra-Manríquez, G. Ibarra-Manríquez, G. Ibarra M.
+G. Ibarra...",False|Unlisted_M,True,False,False,False,False,True|1,Name|Team
+http://fm-digital-assets.fieldmuseum.org/2818/050/V0616126F.jpg,V0616126F,1,nan (C. A. Purpus),1,,19952,"Carl (Karl) A. Purpus, C. A. Purpus",True|173703,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/106/V0616127F.jpg,V0616127F,1,"nan (Nee, M.)",1,M. Nee,57038,"M. Nee, Michael H. Nee, M. Nee...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/078/V0616128F.jpg,V0616128F,1,"nan (Purpus, C.A.)",1,,19952,"Carl (Karl) A. Purpus, C. A. Purpus",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/079/V0616129F.jpg,V0616129F,1,"nan (Foster, Robin Bradford)",1,R. B. Foster,67280,"R. B. Foster, Robin B. Foster, R. B. Foster...",True|104907,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/079/V0616129F.jpg,V0616129F,1,"nan (Foster, Robin Bradford)",2,,217381,"Robin B. Foster, R. B. Foster",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/079/V0616129F.jpg,V0616129F,1,"nan (Foster, Robin Bradford)",3,,175313,"Robin B. Foster, R. B. Foster, Robin Foster
+R. Foster",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/107/V0616130F.jpg,V0616130F,1,Zenith Batista (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/007/V0616131F.jpg,V0616131F,1,nan (C. Galdames),1,,18613,"Carmen Galdames, C. Galdames",False|Unlisted_M,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/2817/963/V0616132F.jpg,V0616132F,1,"nan (Araúz, B.)",1,,16654,"B. Araúz, B. Araúz",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/074/V0616133F.jpg,V0616133F,1,Zenith Batista (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/083/V0616134F.jpg,V0616134F,1,nan (C. Galdames),1,,18613,"Carmen Galdames, C. Galdames",False|Unlisted_M,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/2817/986/V0616135F.jpg,V0616135F,1,"nan (Allen, Paul H.)",1,P. H. Allen,62645,"P. H. Allen, Paul H. Allen, P. H. Allen...",True|100838,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/986/V0616135F.jpg,V0616135F,1,"nan (Allen, Paul H.)",2,,180119,"Paul H. Allen, P. H. Allen",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/020/V0616136F.jpg,V0616136F,1,Al Gentry (nan),1,A. H. Gentry,14382,"A. H. Gentry, Alwyn H. Gentry, A. H. Gentry...",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/987/V0616137F.jpg,V0616137F,1,nan (Robin Foster),1,R. B. Foster,67280,"R. B. Foster, Robin B. Foster, R. B. Foster...",True|104907,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/987/V0616137F.jpg,V0616137F,1,nan (Robin Foster),2,,217402,"Robin Foster, R. Foster",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/987/V0616137F.jpg,V0616137F,1,nan (Robin Foster),3,,175313,"Robin B. Foster, R. B. Foster, Robin Foster
+R. Foster",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/040/V0616138F.jpg,V0616138F,1,"nan (Croat, Thomas Bernard)",1,T. B. Croat,72506,"T. B. Croat, Thomas B. Croat, T. B. Croat...",True|102929,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/071/V0616139F.jpg,V0616139F,1,"nan (Garwood, Nancy Carol)",1,,58847,"Nancy C. Garwood, N. C. Garwood",True|106589,True,False,False,False,False,False,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/054/V0616140F.jpg,V0616140F,1,"nan (Garwood, Nancy Carol)",1,,58847,"Nancy C. Garwood, N. C. Garwood",True|106589,True,False,False,False,False,False,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/991/V0616141F.jpg,V0616141F,1,"nan (Garwood, Nancy Carol)",1,,58847,"Nancy C. Garwood, N. C. Garwood",True|106589,True,False,False,False,False,False,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/977/V0616142F.jpg,V0616142F,1,"nan (Garwood, Nancy Carol)",1,,58847,"Nancy C. Garwood, N. C. Garwood",True|106589,True,False,False,False,False,False,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/968/V0616143F.jpg,V0616143F,1,"nan (Proctor, George Richardson)",1,G. R. Proctor,568,"G. R. Proctor, George R. Proctor, G. R. Proctor...",True|101316,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/968/V0616143F.jpg,V0616143F,1,"nan (Proctor, George Richardson)",2,,93921,"George R. Proctor, G. R. Proctor",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/958/V0616144F.jpg,V0616144F,1,nan (E. Matuda),1,E. Matuda,27166,"E. Matuda, Eizi Matuda, E. Matuda...",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/087/V0616145F.jpg,V0616145F,1,David Garrido (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/044/V0616146F.jpg,V0616146F,1,"nan (Juzepczuk, S.)",1,,68209,"Sergei V. Juzepczuk, S. V. Juzepczuk, S. Juzepczuk",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/998/V0616147F.jpg,V0616147F,1,nan (S. Avendaño Reyes),1,,69675,"Sergio Avendaño Reyes, S. Avendaño Reyes",True|108297,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/036/V0616148F.jpg,V0616148F,1,nan (G. Castillo-Campos),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2817/993/V0616149F.jpg,V0616149F,1,Miguel Chazaro (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/022/V0616150F.jpg,V0616150F,1,A. Lot (nan),1,,15594,"Antonio Lot Helgueras, A. Lot Helgueras, A. Lot
+A. Lot H....",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/105/V0616151F.jpg,V0616151F,1,A. Lot (nan),1,,15594,"Antonio Lot Helgueras, A. Lot Helgueras, A. Lot
+A. Lot H....",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/137/V0616152F.jpg,V0616152F,1,"nan (Zola Baez, M.G.)",1,,54981,"Manuel G. Zola Baez, M. G. Zola Baez, M. G. Zola B.",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/137/V0616152F.jpg,V0616152F,1,"nan (Zola Baez, M.G.)",2,,180496,"M. G. Zolá Báez, M. G. Zolá Báez",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/964/V0616153F.jpg,V0616153F,1,"nan (Breedlove, D.E.)",1,,24246,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/964/V0616153F.jpg,V0616153F,1,"nan (Breedlove, D.E.)",2,,206091,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/128/V0616154F.jpg,V0616154F,1,"nan (Matuda, Eizi)",1,E. Matuda,27166,"E. Matuda, Eizi Matuda, E. Matuda...",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/001/V0616155F.jpg,V0616155F,1,"nan (Breedlove, D.E.)",1,,24246,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/001/V0616155F.jpg,V0616155F,1,"nan (Breedlove, D.E.)",2,,206091,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/099/V0616156F.jpg,V0616156F,1,"nan (Breedlove, D.E.)",1,,24246,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/099/V0616156F.jpg,V0616156F,1,"nan (Breedlove, D.E.)",2,,206091,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/073/V0616157F.jpg,V0616157F,1,"nan (Martinez, G.)",1,,34765,"Gladys Martinez, G. Martinez",True|109813,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/051/V0616158F.jpg,V0616158F,1,"nan (Breedlove, D.E.)",1,,24246,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/051/V0616158F.jpg,V0616158F,1,"nan (Breedlove, D.E.)",2,,206091,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/135/V0616159F.jpg,V0616159F,1,nan (Gerardo A. Salazar),1,,106206,"Gerardo A. Salazar, G. A. Salazar, G. Salazar Chávez",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/090/V0616160F.jpg,V0616160F,1,"nan (Beaman, J. H.)",1,J. H. Beaman,40353,"J. H. Beaman, John H. Beaman, J. H. Beaman...",True|101063,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/075/V0616161F.jpg,V0616161F,1,"nan (Nee, M.)",1,M. Nee,57038,"M. Nee, Michael H. Nee, M. Nee...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/127/V0616162F.jpg,V0616162F,1,"nan (Calzada, J.I.)",1,,47552,"Juan I. Calzada, J. I. Calzada, Ismael Calzada
+Ismael Calzada J....",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/053/V0616163F.jpg,V0616163F,1,"nan (Calzada, J.I.)",1,,47552,"Juan I. Calzada, J. I. Calzada, Ismael Calzada
+Ismael Calzada J....",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/091/V0616164F.jpg,V0616164F,1,nan (R. Cedillo Trigos),1,,65894,"Refugio C. Trigos, R. Cedillo Trigos, R. C. Trigos
+R. Cedillo T.",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/091/V0616164F.jpg,V0616164F,1,nan (R. Cedillo Trigos),2,,180170,"Refugio Cedillo Trigos, R. Cedillo Trigos",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/989/V0616165F.jpg,V0616165F,1,nan (Guillermo Ibarra-Manriquez),1,,35209,"Guillermo Ibarra-Manríquez, G. Ibarra-Manríquez, G. Ibarra M.
+G. Ibarra...",False|Unlisted_M,True,False,False,False,False,False,Name
+http://fm-digital-assets.fieldmuseum.org/2818/032/V0616166F.jpg,V0616166F,1,A. Lot (nan),1,,15594,"Antonio Lot Helgueras, A. Lot Helgueras, A. Lot
+A. Lot H....",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/096/V0616167F.jpg,V0616167F,1,nan (A. C. Sanders),1,A. C. Sanders,14791,"A. C. Sanders, Andrew C. Sanders, A. C. Sanders...",True|137100,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/131/V0616168F.jpg,V0616168F,1,"nan (Breedlove, D.E.)",1,,24246,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/131/V0616168F.jpg,V0616168F,1,"nan (Breedlove, D.E.)",2,,206091,"Dennis E. Breedlove, D. E. Breedlove",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/134/V0616169F.jpg,V0616169F,1,nan (A. C. Sanders),1,A. C. Sanders,14791,"A. C. Sanders, Andrew C. Sanders, A. C. Sanders...",True|137100,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2817/997/V0616170F.jpg,V0616170F,1,nan (Antonio Lot H.),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/064/V0616171F.jpg,V0616171F,1,nan (R. Hernández M.),1,,65493,"Rafael Hernández Magaña, R. Hernández M.",True|129375,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/088/V0616172F.jpg,V0616172F,1,nan (Emily Jane Lott),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/080/V0616173F.jpg,V0616173F,1,"nan (Sanders, A. C.)",1,A. C. Sanders,14791,"A. C. Sanders, Andrew C. Sanders, A. C. Sanders...",True|137100,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/052/V0616174F.jpg,V0616174F,1,nan (A. C. Sanders),1,A. C. Sanders,14791,"A. C. Sanders, Andrew C. Sanders, A. C. Sanders...",True|137100,True,False,False,False,False,False,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/000/V0616175F.jpg,V0616175F,1,"nan (Rothschild, B.)",1,,16876,"Beth M. Rothschild, B. M. Rothschild, B. Rothschild",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/063/V0616176F.jpg,V0616176F,1,"nan (Muenscher, W. C.)",1,,75807,"Walter L. C. Muenscher, W. C. Muenscher",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/101/V0616177F.jpg,V0616177F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/101/V0616177F.jpg,V0616177F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/010/V0616178F.jpg,V0616178F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/010/V0616178F.jpg,V0616178F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/029/V0616179F.jpg,V0616179F,1,nan (C. L. Lundell),1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/029/V0616179F.jpg,V0616179F,1,nan (C. L. Lundell),2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/117/V0616180F.jpg,V0616180F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/117/V0616180F.jpg,V0616180F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/093/V0616181F.jpg,V0616181F,1,H. Zomer (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/097/V0616182F.jpg,V0616182F,1,"nan (Steyermark, Julian Alfred)",1,J. A. Steyermark,47737,"J. A. Steyermark, Julian A. Steyermark, J. A. Steyermark...",True|101462,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/097/V0616182F.jpg,V0616182F,1,"nan (Steyermark, Julian Alfred)",2,,54184,"Dr. Julian A. Steyermark, J. A. Steyermark, Julian Steyermark
+Julian Alfred Steyermark",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/123/V0616183F.jpg,V0616183F,1,L. Tapia (nan),1,,47325,"José L. Tapia, J. L. Tapia, José Luis Tapia Muñoz
+J. L. Tapia M.
+L. Tapia M....",False,True,False,False,False,False,True|1,Name|Team
+http://fm-digital-assets.fieldmuseum.org/2817/961/V0616184F.jpg,V0616184F,1,"nan (Vazquez, Brigada)",1,,18252,"Brigada Vázquez, B. Vázquez",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/961/V0616184F.jpg,V0616184F,1,"nan (Vazquez, Brigada)",2,,180504,"Brigada Vázquez, The Vásquez Brigade",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/013/V0616185F.jpg,V0616185F,1,L. Robles H.  (nan),1,,127495,"L. Robles H., L. Robles H.",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/011/V0616186F.jpg,V0616186F,1,G. Castillo C.  (nan),1,,34854,"Gonzalo Castillo Campos, G. Castillo C.",False,True,False,False,False,False,True|1,Name|Team
+http://fm-digital-assets.fieldmuseum.org/2817/990/V0616187F.jpg,V0616187F,1,"nan (Nee, M.)",1,M. Nee,57038,"M. Nee, Michael H. Nee, M. Nee...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/024/V0616188F.jpg,V0616188F,1,"nan (Ortega, R.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2818/102/V0616189F.jpg,V0616189F,1,"nan (Calzada, Juan Ismael)",1,,47552,"Juan I. Calzada, J. I. Calzada, Ismael Calzada
+Ismael Calzada J....",True|137295,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/121/V0616190F.jpg,V0616190F,1,R. Ortega O.  (nan),1,,67272,"Roberto V. Ortega Ortiz, R. V. Ortega O., R. Ortega
+R. Ortega O....",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/119/V0616191F.jpg,V0616191F,1,"nan (Lundell, C. L.)",1,C. L. Lundell,22707,"C. L. Lundell, Cyrus L. Lundell, C. L. Lundell...",True|103660,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/119/V0616191F.jpg,V0616191F,1,"nan (Lundell, C. L.)",2,,130260,"Cyrus L. Lundell, C. L. Lundell",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/045/V0616192F.jpg,V0616192F,1,nan (A. Gómez-Pompa),1,,16170,"Arturo Gómez-Pompa, A. Gómez-Pompa, A. Gómez Pompa",True|147229,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/046/V0616193F.jpg,V0616193F,1,"nan (Nee, M.)",1,M. Nee,57038,"M. Nee, Michael H. Nee, M. Nee...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/132/V0616194F.jpg,V0616194F,1,"nan (Nee, M.)",1,M. Nee,57038,"M. Nee, Michael H. Nee, M. Nee...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/059/V0616195F.jpg,V0616195F,1,"nan (Vazquez, Brigada)",1,,18252,"Brigada Vázquez, B. Vázquez",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/059/V0616195F.jpg,V0616195F,1,"nan (Vazquez, Brigada)",2,,180504,"Brigada Vázquez, The Vásquez Brigade",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/094/V0616196F.jpg,V0616196F,1,"nan (Calzada, J.I.)",1,,47552,"Juan I. Calzada, J. I. Calzada, Ismael Calzada
+Ismael Calzada J....",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/973/V0616197F.jpg,V0616197F,1,"nan (Haenke, T.)",1,T. P. X. Haenke,72166,"T. P. X. Haenke, Thaddaus (Tadeas) P. X. Haenke, T. Haenke...",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/092/V0616198F.jpg,V0616198F,1,"nan (Laughlin, Robert Moody)",1,,67098,"Robert M. Laughlin, R. M. Laughlin",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/092/V0616198F.jpg,V0616198F,1,"nan (Laughlin, Robert Moody)",2,,206092,"Robert M. Laughlin, R. M. Laughlin",False|Unlisted_M,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/037/V0616199F.jpg,V0616199F,1,A. Lot (nan),1,,15594,"Antonio Lot Helgueras, A. Lot Helgueras, A. Lot
+A. Lot H....",False,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2817/957/V0616200F.jpg,V0616200F,1,nan (S. Avendaño Reyes),1,,69675,"Sergio Avendaño Reyes, S. Avendaño Reyes",True|108297,True,False,False,False,False,True|1,Name|ID|Team
+http://fm-digital-assets.fieldmuseum.org/2818/021/V0616201F.jpg,V0616201F,1,nan (Alush Shilom Ton),1,,10725,"Alonso Méndez Ton, A. Méndez Ton, A. M. Ton
+Alush Mendez Ton
+Alush Shilom Ton...",True|135565,True,False,False,False,False,False|No-co-collectors,Name|ID
+http://fm-digital-assets.fieldmuseum.org/2818/033/V0616202F.jpg,V0616202F,1,"nan (Chazaro B., M.)",1,,57302,"Miguel de J. Cházaro Basáñoez, M. Cházaro B.",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/124/V0616203F.jpg,V0616203F,1,R. Hernandez M.  (nan),1,,65493,"Rafael Hernández Magaña, R. Hernández M.",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/947/V0616204F.jpg,V0616204F,1,"nan (Muenscher, W. C.)",1,,75807,"Walter L. C. Muenscher, W. C. Muenscher",False|Unlisted,True,False,False,False,False,False|No-co-collectors,Name
+http://fm-digital-assets.fieldmuseum.org/2818/661/V0616205F.jpg,V0616205F,1,E. Duarte (nan),1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
+http://fm-digital-assets.fieldmuseum.org/2819/232/V0616206F.jpg,V0616206F,1,"nan (Castillo, J.J.)",1,,,,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,False|NoMatch,NoMatch
