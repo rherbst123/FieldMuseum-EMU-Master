@@ -29,7 +29,7 @@ Usage:
 2. Run script; outputs will generate in the same directory
 3. Review validation reports for errors
 
-Created by: Alex Wcislo
+Created by: Alex Wcislo and Riley Herbst
 '''
 
 import pandas as pd
