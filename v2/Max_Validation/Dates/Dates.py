@@ -8,6 +8,7 @@ import re
 # Cs for heck Collector Date 00XX Years. 
 # if unvalidated 00XX put into brackets (After collector validation) 
 
+#Look at Verbatim NAMES !! 
 
 def extract_year(date_str):
     """
@@ -207,8 +208,18 @@ def process_transcription_file(input_file, output_file, master_collector_file):
         validation_result = ""
         # Prioritize checking by IRN first, then by name
         primary_irn = row.get('primary_master_irn')
+        
+        # Get collector names from existing columns and clean them
+        verbatim_collector_name = row.get('verbatimCollector1')
+        if pd.isna(verbatim_collector_name) or str(verbatim_collector_name).strip().lower() in ['nan', '', 'none']:
+            verbatim_collector_name = None
+        
+        master_collector_name = row.get('primary_master_name')
+        if pd.isna(master_collector_name) or str(master_collector_name).strip().lower() in ['nan', '', 'none']:
+            master_collector_name = None
+            
         collector_name = row.get('normalized_collector')
-        print(f"  - Collector Info: IRN='{primary_irn}', Name='{collector_name}'")
+        print(f"  - Collector Info: IRN='{primary_irn}', Verbatim='{verbatim_collector_name}', Master='{master_collector_name}', Normalized='{collector_name}'")
 
         # Clean the IRN value - convert to integer string, handle NaNs
         if pd.notna(primary_irn):
@@ -259,6 +270,8 @@ def process_transcription_file(input_file, output_file, master_collector_file):
     df.insert(verbatim_col_idx + 3, 'Years', years_data)
     df.insert(verbatim_col_idx + 4, 'DateValidation', date_validation_data)
 
+    # The verbatim collector names are already in the data, no need to add new columns
+    
     # Drop the temporary normalized column if it was created
     if 'normalized_collector' in df.columns:
         df = df.drop(columns=['normalized_collector'])
@@ -293,10 +306,29 @@ def process_transcription_file(input_file, output_file, master_collector_file):
     print(f"  Collector Not Found: {not_found_count}")
     print("-" * 20)
     print(f"Output saved to: {output_file}")
+    
+    # Print examples of collector names from existing columns
+    if 'verbatimCollector1' in df.columns:
+        # Filter out 'nan' strings and actual NaN values
+        verbatim_clean = df['verbatimCollector1'][~df['verbatimCollector1'].isna() & 
+                                                  ~df['verbatimCollector1'].astype(str).str.lower().isin(['nan', '', 'none'])]
+        unique_verbatim = verbatim_clean.unique()
+        print(f"\nVerbatim collector names: {len(unique_verbatim)} unique names")
+        if len(unique_verbatim) > 0:
+            print("Examples:", list(unique_verbatim[:5]))
+    
+    if 'primary_master_name' in df.columns:
+        # Filter out 'nan' strings and actual NaN values
+        master_clean = df['primary_master_name'][~df['primary_master_name'].isna() & 
+                                                 ~df['primary_master_name'].astype(str).str.lower().isin(['nan', '', 'none'])]
+        unique_master = master_clean.unique()
+        print(f"Master collector names: {len(unique_master)} unique names")
+        if len(unique_master) > 0:
+            print("Examples:", list(unique_master[:5]))
 
 if __name__ == "__main__":
-    input_file = r"C:\Users\Riley\Documents\GitHub\FieldMuseum-EMU-Master\v2\Max_Validation\Testing\Modified_Max_Sheet_with_Top_Results.csv"
-    output_file = r"C:\Users\Riley\Documents\GitHub\FieldMuseum-EMU-Master\v2\Max_Validation\Dates\Modified_Max_Sheet_with_Top_Results_with_date_analysis.csv"
-    master_collector_file = r"C:\Users\Riley\Documents\GitHub\FieldMuseum-EMU-Master\v2\Max_Validation\Dates\Validator\Master_Collector(newmain).csv"
+    input_file = r"/home/riley/Documents/GitHub/FieldMuseum-EMU-Master/v2/Max_Validation/Testing/Modified_Max_Sheet_with_Top_Results.csv"
+    output_file = r"v2/Max_Validation/Dates/Modified_Max_Sheet_with_Top_Results_with_date_analysis.csv"
+    master_collector_file = r"/home/riley/Documents/GitHub/FieldMuseum-EMU-Master/v2/Max_Validation/Dates/Validator/Master_Collector(newmain).csv"
     
     process_transcription_file(input_file, output_file, master_collector_file)
