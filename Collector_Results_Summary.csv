@@ -1,0 +1,43 @@
+Barcode,Collector_Number,Master_IRN,HUH_BotanistID,CollectorName,VerbatimCollector,Master_Name,Score
+V0081526F,1,,,,[hant-Hint],,BRACKETS
+V0116787F,1,19764,,"Díaz, Camilo",C. Díaz,,Name|Country|Date
+V0116787F,2,53206,187597,"Huamán, M.",M. Huamán,,Name|ID|Country|Date|Team
+V0116787F,3,,187598,"Salvador, F.",F. Salvador,,NoMatch
+V0116787F,4,,187599,O. Portocarrero,"Portocarrero, O.",,NoMatch
+V0116787F,5,47359,187600,"Medina, M.",M. Medina,,Name
+V0116810F,1,47225,132033,"Schunke Vigo, José",José Schunke Vigo,,Name|ID|Country|Date
+V0116830F,1,20757,127852,"Grández Rios, Cesar",C. Grández,C. Grández,Name|ID|Country|Date|Team
+V0116830F,2,58881,126883,"Jaramillo, Nestor",N. Jaramillo,,Name|ID|Country|Date
+V0116830F,3,105132,,"Criollo, G.",G. Criollo,G. Criollo,Name|Country|Date|Team
+V0118342F,1,47500,147643,"Revilla, Juan",Juan Revilla,,Name|ID|Country|Date
+V0118512F,1,14382,138245,"Gentry, Alwyn Howard",A. Gentry,A. H. Gentry,Name|ID|Country|Date|Team
+V0118512F,2,131113,,,D. Smith,,Name|Country|Date
+V0118512F,3,,,,G. Criollo D.,,NoMatch
+V0151495F,1,14382,138245,"Gentry, Alwyn Howard",A. Gentry,A. H. Gentry,Name|ID|Country|Date|Team
+V0151495F,2,67253,146893,"Vásquez, Roberto",R. Vásquez,Rob. Vásquez,Name|ID|Country|Date|Team
+V0151495F,3,58881,126883,"Jaramillo, Nestor",N. Jaramillo,,Name|ID|Country|Date|Team
+V0162945F,1,14382,138245,"Gentry, Alwyn Howard",A. Gentry,A. H. Gentry,Name|ID|Country|Date|Team
+V0162945F,2,19764,,,C. Díaz,,Name|Country|Date|Team
+V0162945F,3,60311,,,O. Phillips,,Name|Country|Date|Team
+V0162945F,4,,,,D. Gorchov,,NoMatch
+V0165062F,1,30350,100392,Fortunato Luciano Herrera,Fortunato L. Herrera,F. L. Herrera,Name|ID|Country|Date
+V0165347F,1,23026,124232,"Simpson, Donald R.",Donald Simpson,,Name|ID|Country|Date|Team
+V0165347F,2,47225,132033,"Schunke Vigo, José",J. Schunke V.,,Name|ID|Country|Date
+V0178026F,1,54956,107398,"Rimachi Y., Manuel",Manuel Rimachi Y.,,Name|ID|Country|Date
+V0180202F,1,47500,147643,"Revilla, Juan",Juan Revilla,,Name|ID|Country|Date
+V0190349F,1,208550,,,D.B. Ekkens,,Name|Country|Date
+V0201800F,1,21360,126335,"Belshaw, Charles M.",Charles M. Belshaw,,Name|ID|Country|Date
+V0218948F,1,47225,132033,"Schunke Vigo, José",José Schunke Vigo,,Name|ID|Country|Date
+V0224851F,1,,,,,,NONAME
+V0225181F,1,43463,101939,"Macbride, James Francis",J. Francis Macbride,J. F. Macbride,Name|ID|Country|Date
+V0240233F,1,51933,102663,"Williams, Llewelyn",Llewelyn Williams,,Name|ID|Country|Date
+V0245406F,1,14382,138245,"Gentry, Alwyn Howard",A. Gentry,A. H. Gentry,Name|ID|Country|Date|Team
+V0245406F,2,57143,116623,"Dillon, Michael O.",M. Dillon,M. O. Dillon,Name|ID|Country|Date|Team
+V0245406F,3,43198,118538,"Aronson, James",J. Aronson,J. Aronson,Name|Country|Date|Team
+V0245406F,4,19764,,,C. Díaz,,Name|Country|Date|Team
+V0245442F,1,53581,116798,"Sawada, Makoto",M. Sawada,,Name|ID|Country|Date
+V0245452F,1,17572,148753,"Peyton, Ben",B. Peyton,,Name|Country|Date
+V0245452F,2,,,,S. Tinley,,NoMatch
+V0252058F,1,47500,147643,"Revilla, Juan",Juan Revilla,,Name|ID|Country|Date
+V0315069F,1,47336,137066,"Schunke Lopez, José M.",José M. Schunke,,Name|ID|Country|Date
+V0316567F,1,35210,112743,"Klug, Guillermo",G. Klug,,Name|Country|Date

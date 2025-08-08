@@ -86,6 +86,20 @@ def parse_collector_date_range(date_range_str):
         pass
     return None
 
+# New helper to resolve column names case-insensitively and by aliases
+def resolve_column_name(df: pd.DataFrame, candidates):
+    """Return the actual column name in df matching any candidate (case-insensitive)."""
+    if not isinstance(candidates, (list, tuple)):
+        candidates = [candidates]
+    lower_map = {c.lower(): c for c in df.columns}
+    for cand in candidates:
+        if not cand:
+            continue
+        found = lower_map.get(str(cand).lower())
+        if found:
+            return found
+    return None
+
 def build_master_collector_lookup(master_df):
     """Build a lookup dictionary from all possible collector name columns and IRNs to their date ranges."""
     lookup = {}
@@ -147,6 +161,19 @@ def process_transcription_file(input_file, output_file, master_collector_file):
         print(f"Error reading CSV files: {e}")
         return
 
+    # Resolve key column names that vary by case/spelling across files
+    verbatim_col = resolve_column_name(df, [
+        'VerbatimCollectionDate', 'verbatimCollectionDate', 'VerbatimDate', 'verbatim_date'
+    ])
+    if not verbatim_col:
+        print("Error: Could not find a 'VerbatimCollectionDate' column (tried variants: VerbatimCollectionDate, verbatimCollectionDate, VerbatimDate, verbatim_date).")
+        print("Available columns:", list(df.columns))
+        return
+
+    min_date_col = resolve_column_name(df, ['MinimumDate', 'minimumDate', 'MinDate', 'minDate'])
+    years_src_col = resolve_column_name(df, ['Years', 'Year', 'years', 'year'])
+    catalogue_col = resolve_column_name(df, ['CatalogueNumber', 'CatologueNumber'])
+
     # --- 1. Build Master Collector Lookup ---
     master_collectors = build_master_collector_lookup(master_df)
     if not master_collectors:
@@ -164,20 +191,28 @@ def process_transcription_file(input_file, output_file, master_collector_file):
 
     # Identify and convert all irn/ID columns to integers, handling potential errors
     for col in df.columns:
-        if 'irn' in col.lower() or 'id' in col.lower():
+        lower = col.lower()
+        if 'irn' in lower or ('id' in lower and 'uuid' not in lower):
             # Use pd.to_numeric to handle non-numeric values gracefully by turning them into NaNs
-            df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')
+            try:
+                df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')
+            except Exception:
+                # If conversion fails (e.g., pure strings), leave as-is
+                pass
 
-    # Ensure CatalogueNumber is an integer, handling potential errors
-    if 'CatalogueNumber' in df.columns:
-        df['CatalogueNumber'] = pd.to_numeric(df['CatalogueNumber'], errors='coerce').astype('Int64')
+    # Ensure CatalogueNumber/CatologueNumber is an integer, handling potential errors
+    if catalogue_col:
+        try:
+            df[catalogue_col] = pd.to_numeric(df[catalogue_col], errors='coerce').astype('Int64')
+        except Exception:
+            pass
             
-    # Clean the VerbatimCollectionDate column
-    df['VerbatimCollectionDate'] = df['VerbatimCollectionDate'].astype(str).str.strip().str.strip('"').str.strip("'").str.strip()
-    df['VerbatimCollectionDate'] = df['VerbatimCollectionDate'].replace('nan', '')
+    # Clean the VerbatimCollectionDate column (resolved)
+    df[verbatim_col] = df[verbatim_col].astype(str).str.strip().str.strip('"').str.strip("'").str.strip()
+    df[verbatim_col] = df[verbatim_col].replace('nan', '')
 
     # --- 3. Process Each Row ---
-    verbatim_col_idx = df.columns.get_loc('VerbatimCollectionDate')
+    verbatim_col_idx = df.columns.get_loc(verbatim_col)
     
     # Prepare lists to hold the new column data
     ambiguous_data = []
@@ -190,15 +225,15 @@ def process_transcription_file(input_file, output_file, master_collector_file):
         print(f"\nProcessing row {index + 2}:") # +2 to account for header and 0-based index
 
         # Analyze VerbatimCollectionDate
-        verbatim_date = row['VerbatimCollectionDate']
+        verbatim_date = row[verbatim_col]
         ambiguous, non_ambiguous = analyze_date(verbatim_date)
         ambiguous_data.append(ambiguous)
         non_ambiguous_data.append(non_ambiguous)
         
-        # Extract year from Verbatim, MinimumDate, or an existing 'Years' column
-        verbatim_year = extract_year(row['VerbatimCollectionDate'])
-        minimum_year = extract_year(row.get('MinimumDate', ''))
-        years_col_year = extract_year(row.get('Years', '')) # Check for existing 'Years' column
+        # Extract year from Verbatim, MinimumDate, or an existing 'Years'/'Year' column
+        verbatim_year = extract_year(row[verbatim_col])
+        minimum_year = extract_year(row[min_date_col]) if min_date_col else ""
+        years_col_year = extract_year(row[years_src_col]) if years_src_col else ""  # Check for existing 'Years'/'Year' column
         
         final_year_str = verbatim_year or minimum_year or years_col_year
         years_data.append(final_year_str)
@@ -276,9 +311,12 @@ def process_transcription_file(input_file, output_file, master_collector_file):
     if 'normalized_collector' in df.columns:
         df = df.drop(columns=['normalized_collector'])
     
-    # Final conversion to handle CatalogueNumber as integer strings for output
-    if 'CatalogueNumber' in df.columns:
-        df['CatalogueNumber'] = df['CatalogueNumber'].astype('Int64').astype(str).replace('<NA>', '')
+    # Final conversion to handle CatalogueNumber/CatologueNumber as integer strings for output
+    if catalogue_col:
+        try:
+            df[catalogue_col] = df[catalogue_col].astype('Int64').astype(str).replace('<NA>', '')
+        except Exception:
+            pass
 
     try:
         df.to_csv(output_file, index=False)
@@ -327,8 +365,8 @@ def process_transcription_file(input_file, output_file, master_collector_file):
             print("Examples:", list(unique_master[:5]))
 
 if __name__ == "__main__":
-    input_file = r"/home/riley/Documents/GitHub/FieldMuseum-EMU-Master/v2/Max_Validation/Testing/Modified_Max_Sheet_with_Top_Results.csv"
-    output_file = r"v2/Max_Validation/Dates/Modified_Max_Sheet_with_Top_Results_with_date_analysis.csv"
-    master_collector_file = r"/home/riley/Documents/GitHub/FieldMuseum-EMU-Master/v2/Max_Validation/Dates/Validator/Master_Collector(newmain).csv"
+    input_file = r"C:\Users\Riley\Documents\GitHub\FieldMuseum-EMU-Master\Modified_Max_Sheet_with_Top_Results.csv"
+    output_file = r"C:\Users\Riley\Documents\GitHub\FieldMuseum-EMU-Master\Modified_Max_Sheet_with_Top_Results-8_8_25.csv"
+    master_collector_file = r"C:\Users\Riley\Documents\GitHub\FieldMuseum-EMU-Master\v2\Max_Validation\Dates\Validator\Master_Collector(newmain).csv"
     
     process_transcription_file(input_file, output_file, master_collector_file)

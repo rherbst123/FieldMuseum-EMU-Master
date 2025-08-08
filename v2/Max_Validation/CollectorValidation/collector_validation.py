@@ -1100,8 +1100,8 @@ def create_collector_results_summary(example_file, primary_results_file, seconda
 # Update these paths as needed for your data files
 
 # Input files
-EXAMPLE_FILE = r'FilesToValidate/Example_MAX_Sheet.csv'  # New data from Max
-MASTER_FILE = r'Validators/Master_Collector(newmain).csv'  # Master collector database
+EXAMPLE_FILE = r'v2/Max_Validation/FilesToValidate/Example_MAX_Sheet.csv'  # New data from Max
+MASTER_FILE = r'v2/Max_Validation/Dates/Validator/Master_Collector(newmain).csv'  # Master collector database
 
 # Output files
 PRIMARY_OUTPUT_FILE = 'validation_results(Primary).csv'
