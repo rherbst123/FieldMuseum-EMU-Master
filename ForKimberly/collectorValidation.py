@@ -519,18 +519,46 @@ def process_secondary_collectors(example_df, master_df):
                     id_match_status = "False|Unlisted"
 
                 if pd.notna(huh_id) and str(huh_id) != '' and str(huh_id) != 'nan':
-                    huh_id_display = int(float(huh_id)) if '.' in str(huh_id) else int(huh_id)
+                    # Try to convert huh_id to an integer, but handle non-numeric values
+                    try:
+                        if '.' in str(huh_id):
+                            huh_id_display = int(float(huh_id))
+                        else:
+                            # Extract numeric part if mixed with text (e.g., "1947 agent")
+                            huh_id_str = str(huh_id)
+                            numeric_part = ''.join(c for c in huh_id_str if c.isdigit())
+                            if numeric_part:
+                                huh_id_display = int(numeric_part)
+                            else:
+                                huh_id_display = huh_id_str  # Keep as string if no numeric part
+                    except (ValueError, TypeError):
+                        huh_id_display = str(huh_id)  # Keep as string if conversion fails
+                    
                     id_cols = ['ASA_Botanist_ID', 'ASA_Botanist_ID_2', 'ASA_Botanist_ID_3', 'ASA_Botanist_ID_4']
                     master_ids = []
                     for col in id_cols:
                         if col in master_row and pd.notna(master_row[col]):
-                            master_id = str(master_row[col])
-                            if '.' in master_id:
-                                master_id = str(int(float(master_id)))
+                            # Handle master_id conversion safely
+                            try:
+                                master_id = str(master_row[col])
+                                # Try to standardize numeric IDs
+                                if '.' in master_id and master_id.replace('.', '').isdigit():
+                                    master_id = str(int(float(master_id)))
+                            except (ValueError, TypeError):
+                                master_id = str(master_row[col])
+                            
                             master_ids.append(master_id)
+                            
+                            # Compare IDs - special handling for non-numeric IDs
                             if str(huh_id_display) == master_id:
                                 id_match_status = f"True|{huh_id_display}"
                                 break
+                            # If both have numeric parts, compare those as well
+                            elif isinstance(huh_id_display, int):
+                                master_numeric = ''.join(c for c in master_id if c.isdigit())
+                                if master_numeric and int(master_numeric) == huh_id_display:
+                                    id_match_status = f"True|{huh_id_display}"
+                                    break
 
                         if id_match_status == "False" and master_ids:
                             id_match_status = "False"  # IDs exist but don't match
@@ -558,22 +586,27 @@ def process_secondary_collectors(example_df, master_df):
                 )
                 
                 if name_match:
+                    # Handle potential NaN in Collector_irn
+                    collector_irn = master_row.get('Collector_irn', '')
+                    if pd.isna(collector_irn) or collector_irn == '':
+                        master_irn_val = ''
+                    else:
+                        master_irn_val = int(collector_irn)
+                    
                     matches.append({
-                        'master_name': master_row.get('Standard_Label_Name', ''),
-                        'master_irn': int(master_row.get('Collector_irn', '')),
-                        'id_match': id_match_status,
-                        'name_match': 'True',
-                        'FM_Country_match': country_matches['FM_Country_match'],
-                        'HUH_Country_match': country_matches['HUH_Country_match'],
-                        'FM_Date_match': date_matches['FM_Date_match'],
-                        'HUH_Date_match': date_matches['HUH_Date_match'],
-                        'collector_team_match': collector_team_match,
-                        'name_variants': ", ".join(name_variants[:3]) + ("..." if len(name_variants) > 3 else ""),
-                        'is_match': True
-                    })
-                    has_match = True
-            
-            #if no match, create a single "no match" result
+                            'master_name': master_row.get('Standard_Label_Name', ''),
+                            'master_irn': master_irn_val,
+                            'id_match': id_match_status,
+                            'name_match': 'True',
+                            'FM_Country_match': country_matches['FM_Country_match'],
+                            'HUH_Country_match': country_matches['HUH_Country_match'],
+                            'FM_Date_match': date_matches['FM_Date_match'],
+                            'HUH_Date_match': date_matches['HUH_Date_match'],
+                            'collector_team_match': collector_team_match,
+                            'name_variants': ", ".join(name_variants[:3]) + ("..." if len(name_variants) > 3 else ""),
+                            'is_match': True
+                        })
+                    has_match = True            #if no match, create a single "no match" result
             if not has_match:
                 secondary_results.append({
                     'Image_URL': image_url,
@@ -618,9 +651,9 @@ def process_secondary_collectors(example_df, master_df):
                         'Image_URL': image_url,
                         'barcode': barcode,
                         'collector_number': i,
-                        'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbbatim_name or collector_name,
+                        'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbatim_name or collector_name,
                         'master_name': match['master_name'],
-                        'master_irn': int(match['master_irn']),
+                        'master_irn': int(match['master_irn']) if not pd.isna(match['master_irn']) and match['master_irn'] != '' else '',
                         'master_name_variants': match['name_variants'],
                         'id_match': match['id_match'],
                         'name_match': match['name_match'],
@@ -746,8 +779,21 @@ def process_data(example_file, master_file, primary_output_file, secondary_outpu
             if pd.isna(huh_id) or str(huh_id) == '' or str(huh_id) == 'nan':
                 id_match_status = "False|Unlisted"
             else:
-                # Convert huh_id
-                huh_id_display = int(float(huh_id)) if '.' in str(huh_id) else int(huh_id)
+                # Try to convert huh_id to an integer, but handle non-numeric values
+                try:
+                    if '.' in str(huh_id):
+                        huh_id_display = int(float(huh_id))
+                    else:
+                        # Extract numeric part if mixed with text (e.g., "1947 agent")
+                        huh_id_str = str(huh_id)
+                        numeric_part = ''.join(c for c in huh_id_str if c.isdigit())
+                        if numeric_part:
+                            huh_id_display = int(numeric_part)
+                        else:
+                            huh_id_display = huh_id_str  # Keep as string if no numeric part
+                except (ValueError, TypeError):
+                    huh_id_display = str(huh_id)  # Keep as string if conversion fails
+                
                 master_ids = []
                 id_cols = ['ASA_Botanist_ID', 'ASA_Botanist_ID_2', 'ASA_Botanist_ID_3', 'ASA_Botanist_ID_4']
 
@@ -779,9 +825,16 @@ def process_data(example_file, master_file, primary_output_file, secondary_outpu
                 master_row.get('FM_Collector_Teams'),
             )
             
+            # Handle potential NaN in Collector_irn
+            collector_irn = master_row.get('Collector_irn', '')
+            if pd.isna(collector_irn) or collector_irn == '':
+                master_irn_val = ''
+            else:
+                master_irn_val = int(collector_irn)
+            
             match_data = {
                 'master_name': master_row.get('Standard_Label_Name', ''),
-                'master_irn': int(master_row.get('Collector_irn', '')),
+                'master_irn': master_irn_val,
                 'id_match': id_match_status,
                 'name_match': 'True',
                 'FM_Country_match': country_matches['FM_Country_match'],
@@ -808,7 +861,7 @@ def process_data(example_file, master_file, primary_output_file, secondary_outpu
                 'Image_URL': image_url,
                 'barcode': barcode,
                 'collector_number': 1,
-                'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbbatim_name or collector_name,
+                'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbatim_name or collector_name,
                 'match_rank': 1,
                 'master_name': '',
                 'master_irn': '',
@@ -847,10 +900,10 @@ def process_data(example_file, master_file, primary_output_file, secondary_outpu
                     'Image_URL': image_url,
                     'barcode': barcode,
                     'collector_number': 1,
-                    'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbbatim_name or collector_name,
+                    'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbatim_name or collector_name,
                     'match_rank': i+1,
                     'master_name': match['master_name'],
-                    'master_irn': int(match['master_irn']) if match['strict_match'] else '',
+                    'master_irn': int(match['master_irn']) if match['strict_match'] and not pd.isna(match['master_irn']) and match['master_irn'] != '' else '',
                     'master_name_variants': match['name_variants'],
                     'id_match': match['id_match'],
                     'name_match': match['name_match'],
@@ -988,63 +1041,75 @@ def create_modified_max_sheet(example_file, primary_results_file, secondary_resu
                 modified_df.at[idx, f'secondary_{collector_num}_score'] = sec_match['score']
     
     # Reorder columns to place Year after verbatimCollectionDate and IRNs before collector names
-    cols = list(modified_df.columns)
+    # Define a new column order that prevents duplication
     new_cols = []
     
-    # Add initial columns up to verbatimCollectionDate
-    for col in cols:
+    # First, add all columns up to verbatimCollectionDate
+    base_cols = [col for col in modified_df.columns if col not in [
+        'Year', 'Year_Validation', 'primary_master_irn', 'primary_master_name', 'primary_score'
+    ] and not col.startswith('secondary_')]
+    
+    collector_cols_added = set()  # Track which collector columns we've already added
+    
+    # Add columns up to verbatimCollectionDate
+    for col in base_cols:
         if col == 'verbatimCollectionDate':
             new_cols.append(col)
-            new_cols.append('Year')  # Add Year right after verbatimCollectionDate
-            new_cols.append('Year_Validation')  # Add Year_Validation after Year
+            # Add year columns right after verbatimCollectionDate
+            new_cols.append('Year')
+            new_cols.append('Year_Validation')
             break
         new_cols.append(col)
     
-    # Add remaining columns up to first collector
-    for col in cols:
-        if col == 'HUH_BotanistID_1':
+    # Add columns after verbatimCollectionDate up to first collector column
+    for col in base_cols:
+        if col in new_cols:
+            continue
+        if col.startswith('HUH_BotanistID_') or col.startswith('collectorName') or col.startswith('verbatimCollector'):
             break
-        if col not in new_cols:
-            new_cols.append(col)
+        new_cols.append(col)
     
-    # Add collector 1 data in order: ID, UUID/GUID, name, verbatim
+    # Add collector 1 data with validation info
     new_cols.append('primary_master_irn')
-    if 'HUH_BotanistID_1' in cols:
-        new_cols.append('HUH_BotanistID_1')
-    if 'HUH_UUID_1' in cols:
-        new_cols.append('HUH_UUID_1')
-    elif 'HUH_GUID_1' in cols:
-        new_cols.append('HUH_GUID_1')
-    if 'collectorName1' in cols:
-        new_cols.append('collectorName1')
-    if 'verbatimCollector1' in cols:
-        new_cols.append('verbatimCollector1')
-    new_cols.extend(['primary_master_name', 'primary_score'])
-    
-    # Add collectors 2-5 in order: ID, UUID/GUID, name, verbatim, master_irn, master_name, score
-    for i in range(2, 6):
-        new_cols.append(f'secondary_{i}_master_irn')
-        id_col = f'HUH_BotanistID_{i}'
-        if id_col in cols:
-            new_cols.append(id_col)
-        uuid_col = f'HUH_UUID_{i}' if f'HUH_UUID_{i}' in cols else (f'HUH_GUID_{i}' if f'HUH_GUID_{i}' in cols else None)
-        if uuid_col and uuid_col in cols:
-            new_cols.append(uuid_col)
-        name_col = f'collectorName{i}'
-        verb_col = f'verbatimCollector{i}'
-        if name_col in cols:
-            new_cols.append(name_col)
-        if verb_col in cols:
-            new_cols.append(verb_col)
-        new_cols.extend([f'secondary_{i}_master_name', f'secondary_{i}_score'])
-    
-    # Add remaining columns
-    for col in cols:
-        if col not in new_cols:
+    collector1_cols = ['HUH_BotanistID_1', 'HUH_UUID_1', 'HUH_GUID_1', 'collectorName1', 'verbatimCollector1']
+    for col in collector1_cols:
+        if col in base_cols:
             new_cols.append(col)
+            collector_cols_added.add(col)
+    new_cols.append('primary_master_name')
+    new_cols.append('primary_score')
+    
+    # Add collectors 2-5 with validation info
+    for i in range(2, 6):
+        collector_id = f'HUH_BotanistID_{i}'
+        collector_uuid = f'HUH_UUID_{i}'
+        collector_guid = f'HUH_GUID_{i}'
+        collector_name = f'collectorName{i}'
+        collector_verbatim = f'verbatimCollector{i}'
+        
+        # Add master IRN first
+        new_cols.append(f'secondary_{i}_master_irn')
+        
+        # Add original collector fields in order
+        for col in [collector_id, collector_uuid, collector_guid, collector_name, collector_verbatim]:
+            if col in base_cols:
+                new_cols.append(col)
+                collector_cols_added.add(col)
+        
+        # Add validation results
+        new_cols.append(f'secondary_{i}_master_name')
+        new_cols.append(f'secondary_{i}_score')
+    
+    # Add any remaining base columns we haven't added yet
+    for col in base_cols:
+        if col not in new_cols and col not in collector_cols_added:
+            new_cols.append(col)
+    
+    # Make sure we only include columns that actually exist
+    valid_cols = [col for col in new_cols if col in modified_df.columns]
     
     # Reorder the dataframe
-    modified_df = modified_df[new_cols]
+    modified_df = modified_df[valid_cols]
     
     # Format other numeric columns that might have .0
     numeric_cols = ['Multimedia_IRN', 'Taxon_IRN', 'CatalogueNumber', 'CatologueNumber', 'Locality_IRN']
