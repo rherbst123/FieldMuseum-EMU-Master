@@ -105,11 +105,43 @@ def resolve_column_name(df: pd.DataFrame, candidates):
             return found
     return None
 
+# NEW: Robust detection of IRN and date-range columns in Master file
+
+def _find_master_irn_column(master_df: pd.DataFrame):
+    candidates = [
+        'Collector_irn', 'primary_master_irn', 'nam_irn', 'NamIRN', 'IRN', 'irn'
+    ]
+    col = resolve_column_name(master_df, candidates)
+    if col:
+        return col
+    for c in master_df.columns:
+        if 'irn' in str(c).lower():
+            return c
+    return None
+
+
+def _find_master_date_range_column(master_df: pd.DataFrame):
+    candidates = [
+        'date_range_FM', 'Date_Range_FM', 'date_range', 'Date Range',
+        'years_active', 'Years_Active', 'Active_Years', 'activity_dates',
+        'DatesActive', 'collector_dates'
+    ]
+    col = resolve_column_name(master_df, candidates)
+    if col:
+        return col
+    for c in master_df.columns:
+        cl = str(c).lower()
+        if 'date' in cl and ('range' in cl or 'active' in cl or 'years' in cl):
+            return c
+    return None
+
+
 def build_master_collector_lookup(master_df):
-    """Build a lookup dictionary from all possible collector name columns and IRNs to their date ranges."""
+    """Build a lookup dictionary from all possible collector name columns and IRNs to their date ranges.
+    Keys: lower-cased names and IRN strings. Values: (start_year, end_year) or None if no range parsable.
+    """
     lookup = {}
-    
-    # List of all columns that might contain a collector's name
+
     name_columns = [
         'Standard_Label_Name', 'nam_NamFullName', 'nam_NamBriefName', 
         'nam_NamFirst', 'nam_NamMiddle', 'nam_NamLast', 
@@ -120,30 +152,40 @@ def build_master_collector_lookup(master_df):
         'Variant_name_18', 'Variant_name_19', 'Variant_name_20', 'Variant_name',
         'HUH_Collections_in_Field'
     ]
-    
-    # The column containing the date range and the IRN
-    date_range_col = 'date_range_FM'
-    irn_col = 'Collector_irn' # Assumed IRN column in master file
+    existing_name_cols = [c for c in (resolve_column_name(master_df, c) for c in name_columns) if c]
+
+    date_range_col = _find_master_date_range_column(master_df)
+    irn_col = _find_master_irn_column(master_df)
 
     for _, row in master_df.iterrows():
-        date_range = parse_collector_date_range(row.get(date_range_col))
-        if date_range:
-            # Add all name variants to the lookup
-            for col in name_columns:
-                if col in row and pd.notna(row[col]):
-                    name = str(row[col]).strip().lower()
-                    if name:
+        raw_range = row.get(date_range_col) if date_range_col else None
+        date_range = parse_collector_date_range(raw_range) if raw_range is not None else None
+
+        # Add all name variants to the lookup (store first seen non-None range)
+        for col in existing_name_cols:
+            val = row.get(col)
+            if pd.notna(val):
+                name = str(val).strip().lower()
+                if name:
+                    if name not in lookup or lookup[name] is None:
                         lookup[name] = date_range
-            
-            # Add the collector IRN to the lookup
-            if irn_col in row and pd.notna(row[irn_col]):
-                irn = str(int(row[irn_col])) # Ensure IRN is a clean string
-                lookup[irn] = date_range
+
+        # Add the collector IRN to the lookup
+        if irn_col:
+            irn_val = row.get(irn_col)
+            if pd.notna(irn_val):
+                try:
+                    irn_key = str(int(irn_val))
+                except (ValueError, TypeError):
+                    irn_key = str(irn_val).strip()
+                if irn_key:
+                    if irn_key not in lookup or lookup[irn_key] is None:
+                        lookup[irn_key] = date_range
+
     return lookup
 
 def find_collector_column(df):
     """Dynamically find the primary collector column in the input dataframe."""
-    # List of possible column names for the collector, in order of preference
     possible_columns = [
         'collectorName1', 'Collector_1_EMu_Name', 'Primary_Collector_1', 'CollectorName', 'Collector'
     ]
@@ -151,6 +193,24 @@ def find_collector_column(df):
         if col in df.columns:
             # Return the first one found
             return col
+    return None
+
+# NEW: try to find the IRN column in input rows
+
+def find_input_irn_column(df: pd.DataFrame):
+    candidates = [
+        'primary_master_irn', 'Collector_irn', 'collector_irn', 'master_irn', 'IRN', 'irn'
+    ]
+    col = resolve_column_name(df, candidates)
+    if col:
+        return col
+    for c in df.columns:
+        cl = str(c).lower()
+        if 'irn' in cl and 'primary' in cl:
+            return c
+    for c in df.columns:
+        if 'irn' in str(c).lower():
+            return c
     return None
 
 def process_transcription_file(input_file, output_file, master_collector_file):
@@ -183,6 +243,13 @@ def process_transcription_file(input_file, output_file, master_collector_file):
     master_collectors = build_master_collector_lookup(master_df)
     if not master_collectors:
         print("Warning: Master collector lookup table is empty. Date validation will be skipped.")
+    # Diagnostics: which columns were detected in master
+    try:
+        master_irn_col = _find_master_irn_column(master_df)
+        master_range_col = _find_master_date_range_column(master_df)
+        print(f"Detected master IRN column: {master_irn_col or 'None'}; Date range column: {master_range_col or 'None'}")
+    except Exception:
+        pass
 
     # --- 2. Prepare Input DataFrame ---
     # Find the correct collector column dynamically
@@ -194,32 +261,41 @@ def process_transcription_file(input_file, output_file, master_collector_file):
         # Normalize the collector names from the identified column
         df['normalized_collector'] = df[collector_column].astype(str).str.strip().str.lower()
 
+    # Identify IRN column in input (more robust)
+    input_irn_col = find_input_irn_column(df)
+    print(f"Detected input IRN column: {input_irn_col or 'None'}")
+    # Diagnostics: IRN overlap
+    if input_irn_col:
+        try:
+            input_irns = df[input_irn_col].dropna().astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
+            input_irn_unique = set([x for x in input_irns.unique() if x and x.lower() not in ('nan', 'none')])
+            master_irn_keys = {k for k in master_collectors.keys() if k.isdigit()}
+            matched_irns = input_irn_unique & master_irn_keys
+            print(f"Input IRNs: {len(input_irn_unique)} unique; Master IRNs: {len(master_irn_keys)}; Matches by IRN: {len(matched_irns)}")
+        except Exception:
+            pass
+
     # Identify and convert all irn/ID columns to integers, handling potential errors
     for col in df.columns:
         lower = col.lower()
         if 'irn' in lower or ('id' in lower and 'uuid' not in lower):
-            # Use pd.to_numeric to handle non-numeric values gracefully by turning them into NaNs
             try:
                 df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')
             except Exception:
-                # If conversion fails (e.g., pure strings), leave as-is
                 pass
 
-    # Ensure CatalogueNumber/CatologueNumber is an integer, handling potential errors
     if catalogue_col:
         try:
             df[catalogue_col] = pd.to_numeric(df[catalogue_col], errors='coerce').astype('Int64')
         except Exception:
             pass
             
-    # Clean the VerbatimCollectionDate column (resolved)
     df[verbatim_col] = df[verbatim_col].astype(str).str.strip().str.strip('"').str.strip("'").str.strip()
     df[verbatim_col] = df[verbatim_col].replace('nan', '')
 
     # --- 3. Process Each Row ---
     verbatim_col_idx = df.columns.get_loc(verbatim_col)
     
-    # Prepare lists to hold the new column data
     ambiguous_data = []
     non_ambiguous_data = []
     years_data = []
@@ -227,7 +303,7 @@ def process_transcription_file(input_file, output_file, master_collector_file):
     
     print("\n--- Starting Date Validation Detailed Log ---")
     for index, row in df.iterrows():
-        print(f"\nProcessing row {index + 2}:") # +2 to account for header and 0-based index
+        print(f"\nProcessing row {index + 2}:")
 
         # Analyze VerbatimCollectionDate
         verbatim_date = row[verbatim_col]
@@ -246,53 +322,59 @@ def process_transcription_file(input_file, output_file, master_collector_file):
 
         # --- 4. Validate Date Against Collector's Range ---
         validation_result = ""
-        # Prioritize checking by IRN first, then by name
-        primary_irn = row.get('primary_master_irn')
-        
-        # Get collector names from existing columns and clean them
-        verbatim_collector_name = row.get('verbatimCollector1')
-        if pd.isna(verbatim_collector_name) or str(verbatim_collector_name).strip().lower() in ['nan', '', 'none']:
-            verbatim_collector_name = None
-        
-        master_collector_name = row.get('primary_master_name')
-        if pd.isna(master_collector_name) or str(master_collector_name).strip().lower() in ['nan', '', 'none']:
-            master_collector_name = None
-            
-        collector_name = row.get('normalized_collector')
-        print(f"  - Collector Info: IRN='{primary_irn}', Verbatim='{verbatim_collector_name}', Master='{master_collector_name}', Normalized='{collector_name}'")
-
-        # Clean the IRN value - convert to integer string, handle NaNs
+        # Prioritize checking by IRN first, then by names
+        primary_irn = row.get(input_irn_col) if input_irn_col else None
         if pd.notna(primary_irn):
             try:
                 primary_irn = str(int(primary_irn))
             except (ValueError, TypeError):
-                primary_irn = None # Set to None if it's not a valid number
+                primary_irn = str(primary_irn).strip()
         else:
             primary_irn = None
+
+        # Prepare name candidates for lookup
+        verbatim_collector_name = row.get('verbatimCollector1')
+        master_collector_name = row.get('primary_master_name')
+        name_candidates = []
+        if 'normalized_collector' in row and pd.notna(row['normalized_collector']):
+            name_candidates.append(str(row['normalized_collector']).strip().lower())
+        if pd.notna(master_collector_name):
+            name_candidates.append(str(master_collector_name).strip().lower())
+        if pd.notna(verbatim_collector_name):
+            name_candidates.append(str(verbatim_collector_name).strip().lower())
+
+        print(f"  - Collector Info: IRN='{primary_irn}', Name candidates={name_candidates[:3]}")
 
         key_to_check = None
         if primary_irn and primary_irn in master_collectors:
             key_to_check = primary_irn
             print(f"  - Using IRN '{primary_irn}' for lookup.")
-        elif collector_name and collector_name in master_collectors:
-            key_to_check = collector_name
-            print(f"  - Using Collector Name '{collector_name}' for lookup.")
+        else:
+            for nm in name_candidates:
+                if nm and nm in master_collectors:
+                    key_to_check = nm
+                    print(f"  - Using Collector Name '{nm}' for lookup.")
+                    break
 
         if key_to_check:
             print(f"  - Collector '{key_to_check}' found in master file.")
-            if final_year_str and final_year_str.isdigit():
-                year_to_check = int(final_year_str)
-                start_year, end_year = master_collectors[key_to_check]
-                print(f"  - Collector's valid date range: {start_year}-{end_year}")
-                if start_year <= year_to_check <= end_year:
-                    validation_result = "In Range"
-                else:
-                    validation_result = "Out of Range"
-            elif final_year_str:
-                validation_result = "Invalid Year Format"
+            date_range = master_collectors.get(key_to_check)
+            if date_range is None:
+                validation_result = "Collector Found (No Master Range)"
             else:
-                validation_result = "No Year Found"
-        elif primary_irn or collector_name:
+                if final_year_str and final_year_str.isdigit():
+                    year_to_check = int(final_year_str)
+                    start_year, end_year = date_range
+                    print(f"  - Collector's valid date range: {start_year}-{end_year}")
+                    if start_year <= year_to_check <= end_year:
+                        validation_result = "In Range"
+                    else:
+                        validation_result = "Out of Range"
+                elif final_year_str:
+                    validation_result = "Invalid Year Format"
+                else:
+                    validation_result = "No Year Found"
+        elif primary_irn or name_candidates:
              validation_result = "Collector Not Found"
              print(f"  - Collector not found in master file.")
         else:
@@ -335,6 +417,7 @@ def process_transcription_file(input_file, output_file, master_collector_file):
     years_extracted = sum(1 for x in years_data if x)
     in_range_count = sum(1 for x in date_validation_data if x == "In Range")
     out_of_range_count = sum(1 for x in date_validation_data if x == "Out of Range")
+    no_range_count = sum(1 for x in date_validation_data if x == "Collector Found (No Master Range)")
     not_found_count = sum(1 for x in date_validation_data if x == "Collector Not Found")
     
     print("Processing complete!")
@@ -346,6 +429,7 @@ def process_transcription_file(input_file, output_file, master_collector_file):
     print("Date Validation Summary:")
     print(f"  In Range: {in_range_count}")
     print(f"  Out of Range: {out_of_range_count}")
+    print(f"  Found (No Master Range): {no_range_count}")
     print(f"  Collector Not Found: {not_found_count}")
     print("-" * 20)
     print(f"Output saved to: {output_file}")
