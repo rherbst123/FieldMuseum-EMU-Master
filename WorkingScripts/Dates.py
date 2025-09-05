@@ -276,8 +276,12 @@ def process_transcription_file(input_file, output_file, master_collector_file):
             pass
 
     # Identify and convert all irn/ID columns to integers, handling potential errors
+    # Exclude validation match columns that contain structured data like "True|12345"
     for col in df.columns:
         lower = col.lower()
+        # Skip columns that contain match results (they have structured validation data)
+        if '_match' in lower:
+            continue
         if 'irn' in lower or ('id' in lower and 'uuid' not in lower):
             try:
                 df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')

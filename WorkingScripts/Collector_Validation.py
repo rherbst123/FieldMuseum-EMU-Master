@@ -3,8 +3,27 @@ Field Museum Validation Script
 
 Purpose:
 Validates primary and co-collector records against the master collector spreadsheet,
-checking for name matches, ID matches, country matches, date matches, and team association matchs. Generates
-detailed validation reports for both primary and co-collectors.
+checking for name matches, ID matches, country matches, date matches, and team association matches. 
+Generates detailed validation reports for both primary and co-collectors with separate validation
+results for Field Museum (FM) and Harvard University Herbaria (HUH) sources.
+
+All master names in output are labeled with their source (FM or HUH) to indicate data origin.
+
+FIELD ORGANIZATION:
+This script processes and validates data from two main sources with separate result columns:
+
+=== FIELD MUSEUM (FM) FIELDS ===
+- Name fields: Standard_Label_Name, Variant_name, Variant_name_2-11
+- Country validation: FM_Countries → FM_Country_match
+- Date validation: date_range_FM → FM_Date_match
+- Team fields: FM_Collector_Teams → FM_Team_match
+
+=== HARVARD UNIVERSITY HERBARIA (HUH) FIELDS ===
+- Name fields: nam_NamFullName, nam_NamBriefName, nam_NamFirst, nam_NamLast, OtherNames
+- ID fields: ASA_Botanist_ID, ASA_Botanist_ID_2, ASA_Botanist_ID_3, ASA_Botanist_ID_4
+- Country validation: Geography_Collector, Geography_Author → HUH_Country_match
+- Date validation: Lifespan, HUH_Collections_in → HUH_Date_match
+- Team fields: Collector_Team → HUH_Team_match
 
 Inputs:
 - Example CSV for Max - Sheet1.csv (new records to validate)
@@ -13,14 +32,21 @@ Inputs:
 Outputs:
 - validation_results(Primary).csv (primary collector validation)
 - validation_results(Secondary).csv (co-collector validation)
+- Modified_Max_Sheet_with_Top_Results.csv (enhanced input sheet with validation results)
+- Master names in all outputs include source labels: "(FM)" or "(HUH)"
+
+Output Columns Include Separate FM and HUH Validation Results:
+- FM_Country_match, FM_Date_match, FM_Team_match (Field Museum validation)
+- HUH_Country_match, HUH_Date_match, HUH_Team_match (Harvard validation)
 
 Functions:
 1. Name Matching: Handles variants, initials, and name order (Last, First vs First Last)
 2. ID Validation: Cross-checks HUH_BotanistID against master IDs
-3. Country and date Checks: 
-   - Country matching against FM/HUH geography fields
-   - Date validation against collector lifespans/activity periods
-4. Team Analysis: Verifies co-collector relationships
+3. Country Checks: 
+   - FM: Country matching against FM_Countries field
+   - HUH: Country matching against Geography_Collector, Geography_Author fields  
+   - Date validation against FM date_range_FM and HUH Lifespan/HUH_Collections_in periods
+4. Team Analysis: Verifies co-collector relationships separately for FM and HUH sources
 
 Usage:
 1. Place new collector data in CSV format (matching Example CSV for Max - Sheet1.csv)
@@ -228,62 +254,79 @@ def extract_last_names(name):
     
     return last_names
 
-def check_collector_team_match(collector_names, master_team_str, master_fm_team_str):
-    """Check if any of the collector team members match the master team columns"""
-    if not collector_names:
-        return "False|No-co-collectors"
+def check_collector_team_matches(collector_names, master_team_str, master_fm_team_str):
+    """Check if any of the collector team members match the master team columns
     
-    #Extract last names from all collector names
+    Args:
+        collector_names: List of collector names to check
+        master_team_str: HUH Collector_Team field value  
+        master_fm_team_str: FM Collector_Teams field value
+    
+    Returns:
+        Dictionary with separate FM and HUH team match results
+    """
+    if not collector_names:
+        return {"FM_Team_match": "False|No-co-collectors", "HUH_Team_match": "False|No-co-collectors"}
+    
+    # Extract last names from all collector names
     all_last_names = []
     for name in collector_names:
         all_last_names.extend(extract_last_names(name))
     
     if not all_last_names:
-        return "False|No-valid-names"
+        return {"FM_Team_match": "False|No-valid-names", "HUH_Team_match": "False|No-valid-names"}
     
-    # master collector team strings
-    master_teams = []
-    if pd.notna(master_team_str) and isinstance(master_team_str, str):
-        master_teams.append(remove_accents(master_team_str).lower())
+    results = {"FM_Team_match": "False", "HUH_Team_match": "False"}
+    
+    # === FIELD MUSEUM (FM) TEAM MATCHING ===
     if pd.notna(master_fm_team_str) and isinstance(master_fm_team_str, str):
-        master_teams.append(remove_accents(master_fm_team_str).lower())
-    
-    if not master_teams:
-        return "False|No-team-data"
-    
-    #Check each last name against all master team strings
-    match_count = 0
-    for last_name in all_last_names:
-        last_name_lower = last_name.lower()
-        for team_str in master_teams:
+        fm_team_lower = remove_accents(master_fm_team_str).lower()
+        fm_match_count = 0
+        for last_name in all_last_names:
+            last_name_lower = last_name.lower()
             # Look for the last name as a whole word in the team string
-            if f' {last_name_lower} ' in f' {team_str} ':
-                match_count += 1
-                break
-    if match_count < 0:
-        return last_name_lower
-    
-    if match_count > 0:
-        return f"True|{match_count}"
+            if f' {last_name_lower} ' in f' {fm_team_lower} ':
+                fm_match_count += 1
+        
+        if fm_match_count > 0:
+            results["FM_Team_match"] = f"True|{fm_match_count}"
     else:
-        return "False"
+        results["FM_Team_match"] = "False|No-team-data"
+    
+    # === HARVARD UNIVERSITY HERBARIA (HUH) TEAM MATCHING ===
+    if pd.notna(master_team_str) and isinstance(master_team_str, str):
+        huh_team_lower = remove_accents(master_team_str).lower()
+        huh_match_count = 0
+        for last_name in all_last_names:
+            last_name_lower = last_name.lower()
+            # Look for the last name as a whole word in the team string
+            if f' {last_name_lower} ' in f' {huh_team_lower} ':
+                huh_match_count += 1
+        
+        if huh_match_count > 0:
+            results["HUH_Team_match"] = f"True|{huh_match_count}"
+    else:
+        results["HUH_Team_match"] = "False|No-team-data"
+    
+    return results
 
 def get_country_matches(country, master_row):
-    """Check country match against separate columns and return separate match results"""
+    """Check country match against separate FM and HUH columns and return separate match results"""
     if not country:
         return {'FM_Country_match': "False", 'HUH_Country_match': "False"}
     
     country_lower = remove_country_accents(country)
     results = {'FM_Country_match': "False", 'HUH_Country_match': "False"}
     
-    # Check FM country match
+    # === FIELD MUSEUM (FM) COUNTRY MATCHING ===
     fm_countries = str(master_row.get('FM_Countries', ''))
     if fm_countries and country_lower in remove_country_accents(fm_countries):
         results['FM_Country_match'] = f"True|{country}"
     
-    # Check HUH country matches (Geography_Collector and Geography_Author)
+    # === HARVARD UNIVERSITY HERBARIA (HUH) COUNTRY MATCHING ===
     huh_sources = []
-    for col in ['Geography_Collector', 'Geography_Author']:
+    huh_columns = ['Geography_Collector', 'Geography_Author']
+    for col in huh_columns:
         if col in master_row and pd.notna(master_row[col]):
             huh_country = str(master_row[col])
             if country_lower in remove_country_accents(huh_country):
@@ -295,24 +338,26 @@ def get_country_matches(country, master_row):
     return results
 
 def get_date_matches(avg_year, master_row):
-    """Check date match against separate columns and return separate match results"""
+    """Check date match against separate FM and HUH columns and return separate match results"""
     if not avg_year:
         return {'FM_Date_match': "False", 'HUH_Date_match': "False"}
     
     results = {'FM_Date_match': "False", 'HUH_Date_match': "False"}
-    huh_matches = []
     
-    # Check FM date range
+    # === FIELD MUSEUM (FM) DATE MATCHING ===
     fm_date_range = master_row.get('date_range_FM')
     if fm_date_range and check_date_in_range(avg_year, str(fm_date_range)):
         results['FM_Date_match'] = "True"
     
-    # Check HUH lifespan
+    # === HARVARD UNIVERSITY HERBARIA (HUH) DATE MATCHING ===
+    huh_matches = []
+    
+    # Check HUH Lifespan
     lifespan = master_row.get('Lifespan')
     if lifespan and check_date_in_range(avg_year, str(lifespan)):
         huh_matches.append("Lifespan")
     
-    # Check HUH collections
+    # Check HUH Collections
     huh_collections = master_row.get('HUH_Collections_in')
     if huh_collections and check_date_in_range(avg_year, str(huh_collections)):
         huh_matches.append("Collections_in")
@@ -377,40 +422,115 @@ def _compute_match_score(match: dict) -> tuple[int, list[str]]:
         if 'Date' not in labels:
             labels.append('Date')
 
-    # Team
-    team = str(match.get('collector_team_match', ''))
-    if team.startswith('True'):
-        # reward number of team name hits when available (True|<count>)
+    # Team - Now handle separate FM and HUH team matches
+    fm_team = str(match.get('FM_Team_match', ''))
+    huh_team = str(match.get('HUH_Team_match', ''))
+    fm_t_true = fm_team.startswith('True')
+    huh_t_true = huh_team.startswith('True')
+    
+    team_score = 0
+    if fm_t_true and huh_t_true:
+        # Both FM and HUH teams match - highest score
         try:
-            parts = team.split('|')
-            count = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 1
+            fm_parts = fm_team.split('|')
+            huh_parts = huh_team.split('|')
+            fm_count = int(fm_parts[1]) if len(fm_parts) > 1 and fm_parts[1].isdigit() else 1
+            huh_count = int(huh_parts[1]) if len(huh_parts) > 1 and huh_parts[1].isdigit() else 1
+            team_score = 10 + 3 * max(fm_count, huh_count)
         except Exception:
-            count = 1
-        score += 5 + 2 * max(1, count)
+            team_score = 12
         labels.append('Team')
+    elif fm_t_true:
+        # Only FM team matches
+        try:
+            parts = fm_team.split('|')
+            count = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 1
+            team_score = 7 + 2 * count
+        except Exception:
+            team_score = 9
+        labels.append('Team')
+    elif huh_t_true:
+        # Only HUH team matches
+        try:
+            parts = huh_team.split('|')
+            count = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 1
+            team_score = 5 + 2 * count
+        except Exception:
+            team_score = 7
+        labels.append('Team')
+    
+    score += team_score
 
     return score, labels
 
+def get_name_variants_from_master(master_row):
+    """Extract all name variants from master row, organized by source"""
+    name_variants = []
+    
+    # === FIELD MUSEUM (FM) NAME FIELDS ===
+    fm_name_columns = [
+        'Standard_Label_Name',  # FM standard label
+    ]
+    # Add FM variant names  
+    fm_name_columns.extend([f'Variant_name_{i}' for i in range(2, 12)])
+    fm_name_columns.append('Variant_name')
+    
+    # === HARVARD UNIVERSITY HERBARIA (HUH) NAME FIELDS ===
+    huh_name_columns = [
+        'nam_NamFullName',     # HUH full name
+        'nam_NamBriefName',    # HUH brief name  
+        'OtherNames'           # HUH other names
+    ]
+    
+    # Collect all name variants
+    all_name_columns = fm_name_columns + huh_name_columns
+    for col in all_name_columns:
+        if col in master_row.index:
+            val = master_row.get(col, '')
+            if pd.notna(val) and val != '':
+                if isinstance(val, str):
+                    name_variants.append(val)
+    
+    return name_variants
+
 def get_master_display_name(master_row: pd.Series) -> str:
-    """Return the best available display name for a master row using a fallback chain."""
+    """Return the best available display name for a master row using a fallback chain.
+    Prioritizes FM fields, then falls back to HUH fields. Includes source labels (FM/HUH)."""
     def _clean(v):
         return str(v).strip() if pd.notna(v) else ''
 
-    # 1) Preferred labeled names
-    for col in ['Standard_Label_Name', 'nam_NamFullName', 'nam_NamBriefName']:
+    # === FIELD MUSEUM (FM) PREFERRED NAMES (PRIORITY 1) ===
+    fm_preferred_cols = ['Standard_Label_Name']
+    for col in fm_preferred_cols:
         val = _clean(master_row.get(col))
         if val:
-            return val
+            return f"{val} (FM)"
 
-    # 2) Construct First Last when available
+    # === HARVARD UNIVERSITY HERBARIA (HUH) NAMES (PRIORITY 2) ===
+    huh_name_cols = ['nam_NamFullName', 'nam_NamBriefName']
+    for col in huh_name_cols:
+        val = _clean(master_row.get(col))
+        if val:
+            return f"{val} (HUH)"
+
+    # === CONSTRUCT NAME FROM COMPONENTS (PRIORITY 3) ===
+    # Try HUH first/last name components
     first = _clean(master_row.get('nam_NamFirst'))
     last = _clean(master_row.get('nam_NamLast'))
     if first and last:
-        return f"{first} {last}"
+        return f"{first} {last} (HUH)"
 
-    # 3) Try variants and OtherNames (take the first token if delimited)
-    variant_cols = ['Variant_name'] + [f'Variant_name_{i}' for i in range(2, 12)] + ['OtherNames']
-    for col in variant_cols:
+    # === FM AND HUH VARIANT NAMES (PRIORITY 4) ===
+    # Check FM variant names first
+    fm_variant_cols = ['Variant_name'] + [f'Variant_name_{i}' for i in range(2, 12)]
+    for col in fm_variant_cols:
+        val = _clean(master_row.get(col))
+        if val:
+            return f"{val} (FM)"
+    
+    # Then check HUH other names
+    huh_other_cols = ['OtherNames']
+    for col in huh_other_cols:
         val = _clean(master_row.get(col))
         if val:
             if col == 'OtherNames':
@@ -418,15 +538,32 @@ def get_master_display_name(master_row: pd.Series) -> str:
                     if sep in val:
                         token = val.split(sep)[0].strip()
                         if token:
-                            return token
-            return val
+                            return f"{token} (HUH)"
+            return f"{val} (HUH)"
 
-    # 4) Last resort: GUID (if present) or empty
+    # === LAST RESORT: GUID (PRIORITY 5) ===
     guid = _clean(master_row.get('GUID'))
-    return guid
+    return f"{guid} (Unknown)" if guid else "Unknown"
 
 def process_secondary_collectors(example_df, master_df):
-    """Process all secondary collectors (collectorName2+, verbatimCollector2+)"""
+    """
+    Process all secondary collectors (collectorName2+, verbatimCollector2+)
+    
+    Validates secondary collectors against master database using both FM and HUH fields:
+    
+    === FIELD MUSEUM (FM) VALIDATION ===
+    - Names: Standard_Label_Name, Variant_name fields
+    - Geography: FM_Countries
+    - Dates: date_range_FM
+    - Teams: FM_Collector_Teams
+    
+    === HARVARD UNIVERSITY HERBARIA (HUH) VALIDATION ===
+    - Names: nam_NamFullName, nam_NamBriefName, nam_NamFirst, nam_NamLast, OtherNames
+    - IDs: ASA_Botanist_ID, ASA_Botanist_ID_2, ASA_Botanist_ID_3, ASA_Botanist_ID_4
+    - Geography: Geography_Collector, Geography_Author
+    - Dates: Lifespan, HUH_Collections_in
+    - Teams: Collector_Team
+    """
     secondary_results = []
     
     # Process each row in the example file
@@ -468,7 +605,8 @@ def process_secondary_collectors(example_df, master_df):
                     'HUH_Country_match': 'False|Brackets',
                     'FM_Date_match': 'False|Brackets',
                     'HUH_Date_match': 'False|Brackets',
-                    'collector_team_match': 'False|Brackets',
+                    'FM_Team_match': 'False|Brackets',
+                    'HUH_Team_match': 'False|Brackets',
                     'score': 'BRACKETS'
                 })
                 continue
@@ -496,19 +634,15 @@ def process_secondary_collectors(example_df, master_df):
             matches = []
             
             for _, master_row in master_df.iterrows():
-                # Get all name variants from master
-                name_variants = []
-                for col in master_row.index:
-                    if col.startswith('Variant_name') or col in ['Standard_Label_Name', 'nam_NamFullName', 'nam_NamBriefName', 'OtherNames']:
-                        val = master_row.get(col, '')
-                        if pd.notna(val) and val != '':
-                            if isinstance(val, str):
-                                name_variants.append(val)
+                # === NAME VARIANT COLLECTION ===
+                # Get all name variants from master (both FM and HUH sources)
+                name_variants = get_name_variants_from_master(master_row)
                 
                 # Name and ID matching
                 name_to_match = verbatim_name if verbatim_name and not pd.isna(verbatim_name) else collector_name
                 name_bool = process_name_match('', name_to_match, name_variants) if name_to_match else False
                 
+                # === HUH ID MATCHING ===
                 # ID match if exists for this collector
                 id_match_status = "False"
                 huh_id = row.get(f'HUH_BotanistID_{i}', '')
@@ -530,6 +664,7 @@ def process_secondary_collectors(example_df, master_df):
                     except ValueError:
                         huh_id_display = huh_id_str
                     
+                    # Check against multiple HUH ID columns in master
                     id_cols = ['ASA_Botanist_ID', 'ASA_Botanist_ID_2', 'ASA_Botanist_ID_3', 'ASA_Botanist_ID_4']
                     master_ids = []
                     for col in id_cols:
@@ -555,15 +690,17 @@ def process_secondary_collectors(example_df, master_df):
                     elif id_match_status == "False":
                         id_match_status = "False|Unlisted_M"
 
-                # Country and date matches
+                # === COUNTRY AND DATE VALIDATION ===
+                # Country and date matches against both FM and HUH sources
                 country_matches = get_country_matches(country, master_row) if country else {'FM_Country_match': "False", 'HUH_Country_match': "False"}
                 date_matches = get_date_matches(avg_year, master_row) if avg_year else {'FM_Date_match': "False", 'HUH_Date_match': "False"}
                 
-                # Team matching using other co-collectors
-                collector_team_match = check_collector_team_match(
+                # === TEAM VALIDATION ===
+                # Team matching using other co-collectors against both FM and HUH team fields
+                team_matches = check_collector_team_matches(
                     other_collectors,
-                    master_row.get('Collector_Team'),
-                    master_row.get('FM_Collector_Teams'),
+                    master_row.get('Collector_Team'),        # HUH team field
+                    master_row.get('FM_Collector_Teams'),    # FM team field
                 )
                 
                 # Only include if name OR ID matches
@@ -577,7 +714,8 @@ def process_secondary_collectors(example_df, master_df):
                         'HUH_Country_match': country_matches['HUH_Country_match'],
                         'FM_Date_match': date_matches['FM_Date_match'],
                         'HUH_Date_match': date_matches['HUH_Date_match'],
-                        'collector_team_match': collector_team_match,
+                        'FM_Team_match': team_matches['FM_Team_match'],
+                        'HUH_Team_match': team_matches['HUH_Team_match'],
                         'name_variants': ", ".join(name_variants[:3]) + ("..." if len(name_variants) > 3 else "")
                     }
                     score_value, score_labels = _compute_match_score(m)
@@ -600,7 +738,8 @@ def process_secondary_collectors(example_df, master_df):
                     'HUH_Country_match': 'False|NoMatch',
                     'FM_Date_match': 'False|NoMatch',
                     'HUH_Date_match': 'False|NoMatch',
-                    'collector_team_match': 'False|NoMatch',
+                    'FM_Team_match': 'False|NoMatch',
+                    'HUH_Team_match': 'False|NoMatch',
                     'score': 'NoMatch'
                 })
             else:
@@ -613,7 +752,7 @@ def process_secondary_collectors(example_df, master_df):
                         'Image_URL': image_url,
                         'barcode': barcode,
                         'collector_number': i,
-                        'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbbatim_name or collector_name,
+                        'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbatim_name or collector_name,
                         'master_name': match['master_name'],
                         'master_irn': int(match['master_irn']) if pd.notna(match['master_irn']) and match['master_irn'] != '' else '',
                         'master_name_variants': match['name_variants'],
@@ -623,21 +762,45 @@ def process_secondary_collectors(example_df, master_df):
                         'HUH_Country_match': match['HUH_Country_match'],
                         'FM_Date_match': match['FM_Date_match'],
                         'HUH_Date_match': match['HUH_Date_match'],
-                        'collector_team_match': match['collector_team_match'],
+                        'FM_Team_match': match['FM_Team_match'],
+                        'HUH_Team_match': match['HUH_Team_match'],
                         'score': '|'.join(match.get('__score_labels', [])) or 'Name'
                     })
 
     # Create results dataframe
     results_df = pd.DataFrame(secondary_results)
     
-    #Reorder columns
+    #Reorder columns - Group FM and HUH fields separately for clarity
     cols = ['Image_URL', 'barcode', 'collector_number', 'tested_name', 'master_name', 'master_irn', 'master_name_variants',
-            'id_match', 'name_match', 'FM_Country_match', 'HUH_Country_match', 
-            'FM_Date_match', 'HUH_Date_match', 'collector_team_match', 'score']
+            'id_match', 'name_match', 
+            # === FIELD MUSEUM (FM) VALIDATION FIELDS ===
+            'FM_Country_match', 'FM_Date_match', 'FM_Team_match',
+            # === HARVARD UNIVERSITY HERBARIA (HUH) VALIDATION FIELDS ===
+            'HUH_Country_match', 'HUH_Date_match', 'HUH_Team_match',
+            # === OVERALL SCORE ===
+            'score']
 
     return results_df[cols]
 
 def process_data(example_file, master_file, output_dir):
+    """
+    Main processing function that validates collectors against master database.
+    
+    Processes both primary and secondary collectors using organized FM and HUH field validation:
+    
+    === FIELD MUSEUM (FM) VALIDATION ===
+    - Names: Standard_Label_Name, Variant_name fields
+    - Geography: FM_Countries  
+    - Dates: date_range_FM
+    - Teams: FM_Collector_Teams
+    
+    === HARVARD UNIVERSITY HERBARIA (HUH) VALIDATION ===
+    - Names: nam_NamFullName, nam_NamBriefName, nam_NamFirst, nam_NamLast, OtherNames
+    - IDs: ASA_Botanist_ID, ASA_Botanist_ID_2, ASA_Botanist_ID_3, ASA_Botanist_ID_4
+    - Geography: Geography_Collector, Geography_Author
+    - Dates: Lifespan, HUH_Collections_in  
+    - Teams: Collector_Team
+    """
     #Load the data
     example_df = pd.read_csv(example_file) if example_file.endswith('.csv') else pd.read_excel(example_file)
     master_df = pd.read_csv(master_file) if master_file.endswith('.csv') else pd.read_excel(master_file)
@@ -645,6 +808,8 @@ def process_data(example_file, master_file, output_dir):
     #Prepare dataframe for primary collectors
     primary_results = []
     
+    # === PRIMARY COLLECTOR VALIDATION LOOP ===
+    # Process each row and validate primary collector against master database
     # Run Through each row in the example file
     for _, row in example_df.iterrows():
         image_url = row.get('Image_URL', '')
@@ -676,7 +841,8 @@ def process_data(example_file, master_file, output_dir):
                 'HUH_Country_match': 'False|NoName',
                 'FM_Date_match': 'False|NoName',
                 'HUH_Date_match': 'False|NoName',
-                'collector_team_match': 'False|NoName',
+                'FM_Team_match': 'False|NoName',
+                'HUH_Team_match': 'False|NoName',
                 'score': 'NONAME'
             })
             continue
@@ -698,7 +864,8 @@ def process_data(example_file, master_file, output_dir):
                 'HUH_Country_match': 'False|Brackets',
                 'FM_Date_match': 'False|Brackets',
                 'HUH_Date_match': 'False|Brackets',
-                'collector_team_match': 'False|Brackets',
+                'FM_Team_match': 'False|Brackets',
+                'HUH_Team_match': 'False|Brackets',
                 'score': 'BRACKETS'
             })
             continue
@@ -720,18 +887,14 @@ def process_data(example_file, master_file, output_dir):
         matches = []
         
         for _, master_row in master_df.iterrows():
-            # Get all name variants from master
-            name_variants = []
-            for col in master_row.index:
-                if col.startswith('Variant_name') or col in ['Standard_Label_Name', 'nam_NamFullName', 'nam_NamBriefName', 'OtherNames']:
-                    val = master_row.get(col, '')
-                    if pd.notna(val) and val != '':
-                        if isinstance(val, str):
-                            name_variants.append(val)
+            # === NAME VARIANT COLLECTION ===
+            # Get all name variants from master (both FM and HUH sources)
+            name_variants = get_name_variants_from_master(master_row)
             
             # Name check
             name_bool = process_name_match(collector_name, verbatim_name, name_variants)
 
+            # === HUH ID MATCHING ===
             # ID check (more flexible)
             id_match_status = "False"
             if pd.isna(huh_id) or str(huh_id) == '' or str(huh_id) == 'nan':
@@ -751,6 +914,7 @@ def process_data(example_file, master_file, output_dir):
                 except ValueError:
                     huh_id_display = huh_id_str
                 
+                # Check against multiple HUH ID columns in master
                 master_ids = []
                 id_cols = ['ASA_Botanist_ID', 'ASA_Botanist_ID_2', 'ASA_Botanist_ID_3', 'ASA_Botanist_ID_4']
                 for col in id_cols:
@@ -773,14 +937,17 @@ def process_data(example_file, master_file, output_dir):
                 elif id_match_status == "False":
                     id_match_status = "False|Unlisted_M"
 
-            # Country and date
+            # === COUNTRY AND DATE VALIDATION ===
+            # Country and date validation against both FM and HUH sources
             country_matches = get_country_matches(country, master_row) if country else {'FM_Country_match': "False", 'HUH_Country_match': "False"}
             date_matches = get_date_matches(avg_year, master_row) if avg_year else {'FM_Date_match': "False", 'HUH_Date_match': "False"}
             
-            collector_team_match = check_collector_team_match(
+            # === TEAM VALIDATION ===
+            # Team matching against both FM and HUH team fields
+            team_matches = check_collector_team_matches(
                 other_collectors,
-                master_row.get('Collector_Team'),
-                master_row.get('FM_Collector_Teams'),
+                master_row.get('Collector_Team'),        # HUH team field
+                master_row.get('FM_Collector_Teams'),    # FM team field
             )
             
             # Only include if name OR ID matches
@@ -794,7 +961,8 @@ def process_data(example_file, master_file, output_dir):
                     'HUH_Country_match': country_matches['HUH_Country_match'],
                     'FM_Date_match': date_matches['FM_Date_match'],
                     'HUH_Date_match': date_matches['HUH_Date_match'],
-                    'collector_team_match': collector_team_match,
+                    'FM_Team_match': team_matches['FM_Team_match'],
+                    'HUH_Team_match': team_matches['HUH_Team_match'],
                     'name_variants': ", ".join(name_variants[:3]) + ("..." if len(name_variants) > 3 else "")
                 }
                 score_value, score_labels = _compute_match_score(m)
@@ -808,7 +976,7 @@ def process_data(example_file, master_file, output_dir):
                 'Image_URL': image_url,
                 'barcode': barcode,
                 'collector_number': 1,
-                'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbbatim_name or collector_name,
+                'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbatim_name or collector_name,
                 'match_rank': 1,
                 'master_name': '',
                 'master_irn': '',
@@ -819,7 +987,8 @@ def process_data(example_file, master_file, output_dir):
                 'HUH_Country_match': 'False|NoMatch',
                 'FM_Date_match': 'False|NoMatch',
                 'HUH_Date_match': 'False|NoMatch',
-                'collector_team_match': 'False|NoMatch',
+                'FM_Team_match': 'False|NoMatch',
+                'HUH_Team_match': 'False|NoMatch',
                 'score': 'NoMatch'
             })
         else:
@@ -828,32 +997,36 @@ def process_data(example_file, master_file, output_dir):
             
             # Add all name/ID matches to results
             for i, match in enumerate(matches):
-                primary_results.append({
-                    'Image_URL': image_url,
-                    'barcode': barcode,
-                    'collector_number': 1,
-                    'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbbatim_name or collector_name,
-                    'match_rank': i+1,
-                    'master_name': match['master_name'],
-                    'master_irn': int(match['master_irn']) if pd.notna(match['master_irn']) and match['master_irn'] != '' else '',
-                    'master_name_variants': match['name_variants'],
-                    'id_match': match['id_match'],
-                    'name_match': match['name_match'],
-                    'FM_Country_match': match['FM_Country_match'],
-                    'HUH_Country_match': match['HUH_Country_match'],
-                    'FM_Date_match': match['FM_Date_match'],
-                    'HUH_Date_match': match['HUH_Date_match'],
-                    'collector_team_match': match['collector_team_match'],
-                    'score': '|'.join(match.get('__score_labels', [])) or 'Name'
-                })
-    
-    # Create primary results dataframe
+                    primary_results.append({
+                        'Image_URL': image_url,
+                        'barcode': barcode,
+                        'collector_number': 1,
+                        'tested_name': f"{verbatim_name} ({collector_name})" if verbatim_name and collector_name else verbatim_name or collector_name,
+                        'match_rank': i+1,
+                        'master_name': match['master_name'],
+                        'master_irn': int(match['master_irn']) if pd.notna(match['master_irn']) and match['master_irn'] != '' else '',
+                        'master_name_variants': match['name_variants'],
+                        'id_match': match['id_match'],
+                        'name_match': match['name_match'],
+                        'FM_Country_match': match['FM_Country_match'],
+                        'HUH_Country_match': match['HUH_Country_match'],
+                        'FM_Date_match': match['FM_Date_match'],
+                        'HUH_Date_match': match['HUH_Date_match'],
+                        'FM_Team_match': match['FM_Team_match'],
+                        'HUH_Team_match': match['HUH_Team_match'],
+                        'score': '|'.join(match.get('__score_labels', [])) or 'Name'
+                    })    # Create primary results dataframe
     primary_results_df = pd.DataFrame(primary_results)
     
-    # Reorder columns
+    # Reorder columns - Group FM and HUH fields separately for clarity
     cols = ['Image_URL', 'barcode', 'collector_number', 'tested_name', 'match_rank', 'master_name', 'master_irn', 'master_name_variants',
-            'id_match', 'name_match', 'FM_Country_match', 'HUH_Country_match', 
-            'FM_Date_match', 'HUH_Date_match', 'collector_team_match', 'score']
+            'id_match', 'name_match',
+            # === FIELD MUSEUM (FM) VALIDATION FIELDS ===
+            'FM_Country_match', 'FM_Date_match', 'FM_Team_match',
+            # === HARVARD UNIVERSITY HERBARIA (HUH) VALIDATION FIELDS ===  
+            'HUH_Country_match', 'HUH_Date_match', 'HUH_Team_match',
+            # === OVERALL SCORE ===
+            'score']
 
     primary_results_df = primary_results_df[cols]
     
@@ -885,7 +1058,8 @@ def process_data(example_file, master_file, output_dir):
             .first()
         )
         pcols = ['barcode','tested_name','master_name','master_irn','id_match','name_match',
-                 'FM_Country_match','HUH_Country_match','FM_Date_match','HUH_Date_match','collector_team_match','score']
+                 'FM_Country_match','HUH_Country_match','FM_Date_match','HUH_Date_match',
+                 'FM_Team_match','HUH_Team_match','score']
         top_primary = top_primary[pcols].copy()
         top_primary.rename(columns={
             'barcode':'Barcode',
@@ -898,7 +1072,8 @@ def process_data(example_file, master_file, output_dir):
             'HUH_Country_match':'Top_Primary_HUH_Country_match',
             'FM_Date_match':'Top_Primary_FM_Date_match',
             'HUH_Date_match':'Top_Primary_HUH_Date_match',
-            'collector_team_match':'Top_Primary_collector_team_match',
+            'FM_Team_match':'Top_Primary_FM_Team_match',
+            'HUH_Team_match':'Top_Primary_HUH_Team_match',
             'score':'Top_Primary_score'
         }, inplace=True)
         modified_df = modified_df.merge(top_primary, on='Barcode', how='left')
@@ -909,7 +1084,8 @@ def process_data(example_file, master_file, output_dir):
         for cn in sorted(top_sec['collector_number'].unique()):
             sec_n = top_sec[top_sec['collector_number']==cn].copy()
             scols = ['barcode','tested_name','master_name','master_irn','id_match','name_match',
-                     'FM_Country_match','HUH_Country_match','FM_Date_match','HUH_Date_match','collector_team_match','score']
+                     'FM_Country_match','HUH_Country_match','FM_Date_match','HUH_Date_match',
+                     'FM_Team_match','HUH_Team_match','score']
             sec_n = sec_n[scols]
             rename_map = {
                 'barcode':'Barcode',
@@ -922,7 +1098,8 @@ def process_data(example_file, master_file, output_dir):
                 'HUH_Country_match':f'Top_Sec{cn}_HUH_Country_match',
                 'FM_Date_match':f'Top_Sec{cn}_FM_Date_match',
                 'HUH_Date_match':f'Top_Sec{cn}_HUH_Date_match',
-                'collector_team_match':f'Top_Sec{cn}_collector_team_match',
+                'FM_Team_match':f'Top_Sec{cn}_FM_Team_match',
+                'HUH_Team_match':f'Top_Sec{cn}_HUH_Team_match',
                 'score':f'Top_Sec{cn}_score',
             }
             sec_n.rename(columns=rename_map, inplace=True)
@@ -947,9 +1124,12 @@ def process_data(example_file, master_file, output_dir):
     primary_cols = _present([
         'Top_Primary_tested_name', 'Top_Primary_master_name', 'Top_Primary_master_irn',
         'Top_Primary_id_match', 'Top_Primary_name_match',
-        'Top_Primary_FM_Country_match', 'Top_Primary_HUH_Country_match',
-        'Top_Primary_FM_Date_match', 'Top_Primary_HUH_Date_match',
-        'Top_Primary_collector_team_match', 'Top_Primary_score'
+        # === FIELD MUSEUM (FM) PRIMARY VALIDATION FIELDS ===
+        'Top_Primary_FM_Country_match', 'Top_Primary_FM_Date_match', 'Top_Primary_FM_Team_match',
+        # === HARVARD UNIVERSITY HERBARIA (HUH) PRIMARY VALIDATION FIELDS ===
+        'Top_Primary_HUH_Country_match', 'Top_Primary_HUH_Date_match', 'Top_Primary_HUH_Team_match',
+        # === PRIMARY SCORE ===
+        'Top_Primary_score'
     ])
 
     secondary_cols = []
@@ -958,9 +1138,12 @@ def process_data(example_file, master_file, output_dir):
             f'collectorName{cn}', f'verbatimCollector{cn}', f'HUH_BotanistID_{cn}',
             f'Top_Sec{cn}_tested_name', f'Top_Sec{cn}_master_name', f'Top_Sec{cn}_master_irn',
             f'Top_Sec{cn}_id_match', f'Top_Sec{cn}_name_match',
-            f'Top_Sec{cn}_FM_Country_match', f'Top_Sec{cn}_HUH_Country_match',
-            f'Top_Sec{cn}_FM_Date_match', f'Top_Sec{cn}_HUH_Date_match',
-            f'Top_Sec{cn}_collector_team_match', f'Top_Sec{cn}_score'
+            # === FIELD MUSEUM (FM) SECONDARY VALIDATION FIELDS ===
+            f'Top_Sec{cn}_FM_Country_match', f'Top_Sec{cn}_FM_Date_match', f'Top_Sec{cn}_FM_Team_match',
+            # === HARVARD UNIVERSITY HERBARIA (HUH) SECONDARY VALIDATION FIELDS ===
+            f'Top_Sec{cn}_HUH_Country_match', f'Top_Sec{cn}_HUH_Date_match', f'Top_Sec{cn}_HUH_Team_match',
+            # === SECONDARY SCORE ===
+            f'Top_Sec{cn}_score'
         ]))
 
     selected_order = base_cols + primary_cols + secondary_cols
