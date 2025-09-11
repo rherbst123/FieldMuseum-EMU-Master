@@ -38,6 +38,9 @@ Outputs:
 Output Columns Include Separate FM and HUH Validation Results:
 - FM_Country_match, FM_Date_match, FM_Team_match (Field Museum validation)
 - HUH_Country_match, HUH_Date_match, HUH_Team_match (Harvard validation)
+- score (Combined validation score using Name|ID|Country|Date|Team labels)
+- fm_score (Field Museum-specific validation score using applicable field labels)  
+- huh_score (Harvard-specific validation score using applicable field labels)
 
 Functions:
 1. Name Matching: Handles variants, initials, and name order (Last, First vs First Last)
@@ -373,95 +376,140 @@ def get_date_matches(avg_year, master_row):
 
 # New: weighted scoring for rigorous IRN selection
 
-def _compute_match_score(match: dict) -> tuple[int, list[str]]:
+def _compute_match_score(match: dict) -> tuple[int, list[str], dict]:
     """Compute a weighted score and score labels based on all match facets.
-    Returns (score_value, labels). Labels follow existing 'Name|ID|Country|Date|Team' convention."""
+    Returns (score_value, labels, separate_scores). 
+    Labels follow existing 'Name|ID|Country|Date|Team' convention.
+    separate_scores contains FM and HUH specific scoring details."""
     score = 0
     labels: list[str] = []
+    
+    # Initialize separate scoring tracking
+    fm_score = 0
+    huh_score = 0
+    fm_labels = []
+    huh_labels = []
 
     # Name
     if str(match.get('name_match', '')).startswith('True'):
         score += 10
+        fm_score += 10  # Name match applies to both since we don't separate name sources in scoring
+        huh_score += 10
         labels.append('Name')
+        fm_labels.append('Name')
+        huh_labels.append('Name')
 
-    # ID (strongest signal)
+    # ID (strongest signal) - HUH specific
     id_val = str(match.get('id_match', ''))
     if id_val.startswith('True'):
         score += 100
+        huh_score += 100  # ID is HUH-specific
         labels.append('ID')
+        huh_labels.append('ID')
 
-    # Country
+    # Country - Separate FM and HUH scoring
     fm_country = str(match.get('FM_Country_match', ''))
     huh_country = str(match.get('HUH_Country_match', ''))
-    fm_true = fm_country.startswith('True')
-    huh_true = huh_country.startswith('True')
-    if fm_true and huh_true:
+    fm_c_true = fm_country.startswith('True')
+    huh_c_true = huh_country.startswith('True')
+    
+    if fm_c_true and huh_c_true:
         score += 25
+        fm_score += 25
+        huh_score += 25
         if 'Country' not in labels:
             labels.append('Country')
-    elif fm_true or huh_true:
+        fm_labels.append('Country')
+        huh_labels.append('Country')
+    elif fm_c_true:
         score += 15
+        fm_score += 20  # Full FM country score when only FM matches
         if 'Country' not in labels:
             labels.append('Country')
+        fm_labels.append('Country')
+    elif huh_c_true:
+        score += 15
+        huh_score += 20  # Full HUH country score when only HUH matches
+        if 'Country' not in labels:
+            labels.append('Country')
+        huh_labels.append('Country')
 
-    # Date
+    # Date - Separate FM and HUH scoring
     fm_date = str(match.get('FM_Date_match', ''))
     huh_date = str(match.get('HUH_Date_match', ''))
     fm_d_true = fm_date.startswith('True')
     huh_d_true = huh_date.startswith('True')
+    
     if fm_d_true and huh_d_true:
         score += 30
+        fm_score += 30
+        huh_score += 30
         if 'Date' not in labels:
             labels.append('Date')
+        fm_labels.append('Date')
+        huh_labels.append('Date')
     elif fm_d_true:
         score += 20
+        fm_score += 25  # Full FM date score when only FM matches
         if 'Date' not in labels:
             labels.append('Date')
+        fm_labels.append('Date')
     elif huh_d_true:
         score += 15
+        huh_score += 20  # Full HUH date score when only HUH matches
         if 'Date' not in labels:
             labels.append('Date')
+        huh_labels.append('Date')
 
-    # Team - Now handle separate FM and HUH team matches
+    # Team - Separate FM and HUH scoring
     fm_team = str(match.get('FM_Team_match', ''))
     huh_team = str(match.get('HUH_Team_match', ''))
     fm_t_true = fm_team.startswith('True')
     huh_t_true = huh_team.startswith('True')
     
-    team_score = 0
-    if fm_t_true and huh_t_true:
-        # Both FM and HUH teams match - highest score
-        try:
-            fm_parts = fm_team.split('|')
-            huh_parts = huh_team.split('|')
-            fm_count = int(fm_parts[1]) if len(fm_parts) > 1 and fm_parts[1].isdigit() else 1
-            huh_count = int(huh_parts[1]) if len(huh_parts) > 1 and huh_parts[1].isdigit() else 1
-            team_score = 10 + 3 * max(fm_count, huh_count)
-        except Exception:
-            team_score = 12
-        labels.append('Team')
-    elif fm_t_true:
-        # Only FM team matches
+    fm_team_score = 0
+    huh_team_score = 0
+    
+    if fm_t_true:
         try:
             parts = fm_team.split('|')
             count = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 1
-            team_score = 7 + 2 * count
+            fm_team_score = 10 + 3 * count
         except Exception:
-            team_score = 9
-        labels.append('Team')
-    elif huh_t_true:
-        # Only HUH team matches
+            fm_team_score = 12
+        fm_labels.append('Team')
+    
+    if huh_t_true:
         try:
             parts = huh_team.split('|')
             count = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 1
-            team_score = 5 + 2 * count
+            huh_team_score = 8 + 2 * count
         except Exception:
-            team_score = 7
-        labels.append('Team')
+            huh_team_score = 10
+        huh_labels.append('Team')
+    
+    # Add team scores
+    if fm_t_true or huh_t_true:
+        if 'Team' not in labels:
+            labels.append('Team')
+    
+    team_score = max(fm_team_score, huh_team_score)
+    if fm_t_true and huh_t_true:
+        team_score = fm_team_score + huh_team_score // 2  # Bonus for both sources
     
     score += team_score
+    fm_score += fm_team_score
+    huh_score += huh_team_score
 
-    return score, labels
+    # Create separate scores dictionary
+    separate_scores = {
+        'fm_score': fm_score,
+        'huh_score': huh_score,
+        'fm_labels': fm_labels,
+        'huh_labels': huh_labels
+    }
+
+    return score, labels, separate_scores
 
 def get_name_variants_from_master(master_row):
     """Extract all name variants from master row, organized by source"""
@@ -607,7 +655,9 @@ def process_secondary_collectors(example_df, master_df):
                     'HUH_Date_match': 'False|Brackets',
                     'FM_Team_match': 'False|Brackets',
                     'HUH_Team_match': 'False|Brackets',
-                    'score': 'BRACKETS'
+                    'score': 'BRACKETS',
+                    'fm_score': 'BRACKETS',
+                    'huh_score': 'BRACKETS'
                 })
                 continue
             
@@ -718,9 +768,10 @@ def process_secondary_collectors(example_df, master_df):
                         'HUH_Team_match': team_matches['HUH_Team_match'],
                         'name_variants': ", ".join(name_variants[:3]) + ("..." if len(name_variants) > 3 else "")
                     }
-                    score_value, score_labels = _compute_match_score(m)
+                    score_value, score_labels, separate_scores = _compute_match_score(m)
                     m['__score_value'] = score_value
                     m['__score_labels'] = score_labels
+                    m['__separate_scores'] = separate_scores
                     matches.append(m)
             
             if not matches:
@@ -740,7 +791,9 @@ def process_secondary_collectors(example_df, master_df):
                     'HUH_Date_match': 'False|NoMatch',
                     'FM_Team_match': 'False|NoMatch',
                     'HUH_Team_match': 'False|NoMatch',
-                    'score': 'NoMatch'
+                    'score': 'NoMatch',
+                    'fm_score': 'NoMatch',
+                    'huh_score': 'NoMatch'
                 })
             else:
                 # Sort using weighted score
@@ -764,7 +817,9 @@ def process_secondary_collectors(example_df, master_df):
                         'HUH_Date_match': match['HUH_Date_match'],
                         'FM_Team_match': match['FM_Team_match'],
                         'HUH_Team_match': match['HUH_Team_match'],
-                        'score': '|'.join(match.get('__score_labels', [])) or 'Name'
+                        'score': '|'.join(match.get('__score_labels', [])) or 'Name',
+                        'fm_score': '|'.join(match.get('__separate_scores', {}).get('fm_labels', [])) or 'None',
+                        'huh_score': '|'.join(match.get('__separate_scores', {}).get('huh_labels', [])) or 'None'
                     })
 
     # Create results dataframe
@@ -778,7 +833,7 @@ def process_secondary_collectors(example_df, master_df):
             # === HARVARD UNIVERSITY HERBARIA (HUH) VALIDATION FIELDS ===
             'HUH_Country_match', 'HUH_Date_match', 'HUH_Team_match',
             # === OVERALL SCORE ===
-            'score']
+            'score', 'fm_score', 'huh_score']
 
     return results_df[cols]
 
@@ -843,7 +898,9 @@ def process_data(example_file, master_file, output_dir):
                 'HUH_Date_match': 'False|NoName',
                 'FM_Team_match': 'False|NoName',
                 'HUH_Team_match': 'False|NoName',
-                'score': 'NONAME'
+                'score': 'NONAME',
+                'fm_score': 'NONAME',
+                'huh_score': 'NONAME'
             })
             continue
 
@@ -866,7 +923,9 @@ def process_data(example_file, master_file, output_dir):
                 'HUH_Date_match': 'False|Brackets',
                 'FM_Team_match': 'False|Brackets',
                 'HUH_Team_match': 'False|Brackets',
-                'score': 'BRACKETS'
+                'score': 'BRACKETS',
+                'fm_score': 'BRACKETS',
+                'huh_score': 'BRACKETS'
             })
             continue
         
@@ -965,9 +1024,10 @@ def process_data(example_file, master_file, output_dir):
                     'HUH_Team_match': team_matches['HUH_Team_match'],
                     'name_variants': ", ".join(name_variants[:3]) + ("..." if len(name_variants) > 3 else "")
                 }
-                score_value, score_labels = _compute_match_score(m)
+                score_value, score_labels, separate_scores = _compute_match_score(m)
                 m['__score_value'] = score_value
                 m['__score_labels'] = score_labels
+                m['__separate_scores'] = separate_scores
                 matches.append(m)
         
         #if no matches found but we have a name, add a single "no match" row
@@ -989,7 +1049,9 @@ def process_data(example_file, master_file, output_dir):
                 'HUH_Date_match': 'False|NoMatch',
                 'FM_Team_match': 'False|NoMatch',
                 'HUH_Team_match': 'False|NoMatch',
-                'score': 'NoMatch'
+                'score': 'NoMatch',
+                'fm_score': 'NoMatch',
+                'huh_score': 'NoMatch'
             })
         else:
             # Sort using weighted score
@@ -1014,7 +1076,9 @@ def process_data(example_file, master_file, output_dir):
                         'HUH_Date_match': match['HUH_Date_match'],
                         'FM_Team_match': match['FM_Team_match'],
                         'HUH_Team_match': match['HUH_Team_match'],
-                        'score': '|'.join(match.get('__score_labels', [])) or 'Name'
+                        'score': '|'.join(match.get('__score_labels', [])) or 'Name',
+                        'fm_score': '|'.join(match.get('__separate_scores', {}).get('fm_labels', [])) or 'None',
+                        'huh_score': '|'.join(match.get('__separate_scores', {}).get('huh_labels', [])) or 'None'
                     })    # Create primary results dataframe
     primary_results_df = pd.DataFrame(primary_results)
     
@@ -1026,7 +1090,7 @@ def process_data(example_file, master_file, output_dir):
             # === HARVARD UNIVERSITY HERBARIA (HUH) VALIDATION FIELDS ===  
             'HUH_Country_match', 'HUH_Date_match', 'HUH_Team_match',
             # === OVERALL SCORE ===
-            'score']
+            'score', 'fm_score', 'huh_score']
 
     primary_results_df = primary_results_df[cols]
     
@@ -1059,7 +1123,7 @@ def process_data(example_file, master_file, output_dir):
         )
         pcols = ['barcode','tested_name','master_name','master_irn','id_match','name_match',
                  'FM_Country_match','HUH_Country_match','FM_Date_match','HUH_Date_match',
-                 'FM_Team_match','HUH_Team_match','score']
+                 'FM_Team_match','HUH_Team_match','score','fm_score','huh_score']
         top_primary = top_primary[pcols].copy()
         top_primary.rename(columns={
             'barcode':'Barcode',
@@ -1074,7 +1138,9 @@ def process_data(example_file, master_file, output_dir):
             'HUH_Date_match':'Top_Primary_HUH_Date_match',
             'FM_Team_match':'Top_Primary_FM_Team_match',
             'HUH_Team_match':'Top_Primary_HUH_Team_match',
-            'score':'Top_Primary_score'
+            'score':'Top_Primary_score',
+            'fm_score':'Top_Primary_FM_score',
+            'huh_score':'Top_Primary_HUH_score'
         }, inplace=True)
         modified_df = modified_df.merge(top_primary, on='Barcode', how='left')
 
@@ -1085,7 +1151,7 @@ def process_data(example_file, master_file, output_dir):
             sec_n = top_sec[top_sec['collector_number']==cn].copy()
             scols = ['barcode','tested_name','master_name','master_irn','id_match','name_match',
                      'FM_Country_match','HUH_Country_match','FM_Date_match','HUH_Date_match',
-                     'FM_Team_match','HUH_Team_match','score']
+                     'FM_Team_match','HUH_Team_match','score','fm_score','huh_score']
             sec_n = sec_n[scols]
             rename_map = {
                 'barcode':'Barcode',
@@ -1101,6 +1167,8 @@ def process_data(example_file, master_file, output_dir):
                 'FM_Team_match':f'Top_Sec{cn}_FM_Team_match',
                 'HUH_Team_match':f'Top_Sec{cn}_HUH_Team_match',
                 'score':f'Top_Sec{cn}_score',
+                'fm_score':f'Top_Sec{cn}_FM_score',
+                'huh_score':f'Top_Sec{cn}_HUH_score',
             }
             sec_n.rename(columns=rename_map, inplace=True)
             modified_df = modified_df.merge(sec_n, on='Barcode', how='left')
@@ -1128,8 +1196,8 @@ def process_data(example_file, master_file, output_dir):
         'Top_Primary_FM_Country_match', 'Top_Primary_FM_Date_match', 'Top_Primary_FM_Team_match',
         # === HARVARD UNIVERSITY HERBARIA (HUH) PRIMARY VALIDATION FIELDS ===
         'Top_Primary_HUH_Country_match', 'Top_Primary_HUH_Date_match', 'Top_Primary_HUH_Team_match',
-        # === PRIMARY SCORE ===
-        'Top_Primary_score'
+        # === PRIMARY SCORES ===
+        'Top_Primary_score', 'Top_Primary_FM_score', 'Top_Primary_HUH_score'
     ])
 
     secondary_cols = []
@@ -1142,8 +1210,8 @@ def process_data(example_file, master_file, output_dir):
             f'Top_Sec{cn}_FM_Country_match', f'Top_Sec{cn}_FM_Date_match', f'Top_Sec{cn}_FM_Team_match',
             # === HARVARD UNIVERSITY HERBARIA (HUH) SECONDARY VALIDATION FIELDS ===
             f'Top_Sec{cn}_HUH_Country_match', f'Top_Sec{cn}_HUH_Date_match', f'Top_Sec{cn}_HUH_Team_match',
-            # === SECONDARY SCORE ===
-            f'Top_Sec{cn}_score'
+            # === SECONDARY SCORES ===
+            f'Top_Sec{cn}_score', f'Top_Sec{cn}_FM_score', f'Top_Sec{cn}_HUH_score'
         ]))
 
     selected_order = base_cols + primary_cols + secondary_cols

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 12px; }
+      .wrap { display: flex; flex-direction: column; gap: 10px; }
+      .image-box { display: flex; justify-content: center; align-items: center; min-height: 280px; border: 1px solid #ddd; border-radius: 8px; padding: 8px; overflow: auto; }
+      img { width: auto; height: auto; max-width: none; max-height: none; border-radius: 6px; cursor: zoom-in; }
+      img:hover { cursor: zoom-out; }
+      .meta { font-size: 12px; color: #555; white-space: pre-wrap; }
+      .keys { background: #F7F7F7; border: 1px solid #E6E6E6; border-radius: 8px; padding: 8px; font-size: 12px; }
+      kbd { border: 1px solid #bbb; border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; background: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .btns { display: flex; gap: 8px; }
+      .reject-options { display: none; flex-direction: column; gap: 4px; margin-top: 8px; }
+      .reject-options.show { display: flex; }
+      button { padding: 8px 10px; border-radius: 6px; border: 1px solid #ddd; cursor: pointer; }
+      button.approve { background: #E8F5E9; border-color: #C8E6C9; }
+      button.reject { background: #FFEBEE; border-color: #FFCDD2; }
+      button.reject-type { background: #FFF3E0; border-color: #FFCC02; font-size: 11px; padding: 6px 8px; }
+      button.skip { background: #EEF7FF; border-color: #CFE4FF; }
+      .status { font-size: 12px; color: #333; }
+      .error { color: #B00020; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="status" id="status">Loading…</div>
+      <div class="image-box">
+        <img id="img" alt="(no image)" />
+      </div>
+      <div class="meta" id="meta"></div>
+      <div class="btns">
+        <button class="approve" onclick="decide('approve')">Approve (A)</button>
+        <button class="reject" onclick="toggleRejectOptions()">Reject (R)</button>
+        <button class="skip" onclick="decide('skip')">Skip (S)</button>
+      </div>
+      <div class="reject-options" id="rejectOptions">
+        <button class="reject-type" onclick="decide('reject', 'Label Obscured')">Label Obscured (1)</button>
+        <button class="reject-type" onclick="decide('reject', 'Already In Emu')">Already In Emu (2)</button>
+        <button class="reject-type" onclick="decide('reject', 'Scarce Info')">Scarce Info (3)</button>
+        <button class="reject-type" onclick="decide('reject', 'ReImage')">ReImage (4)</button>
+        <button class="reject-type" onclick="decide('reject', 'Misc')">Misc (4)</button>
+      </div>
+      <div class="keys">
+        Keyboard: <kbd>A</kbd> approve, <kbd>R</kbd> show reject options, <kbd>S</kbd> skip<br>
+        Reject types: <kbd>1</kbd> Label Obscured, <kbd>2</kbd> Already In Emu, <kbd>3</kbd> Scarce Info, <kbd>4</kbd> ReImage, <kbd>5</kbd> Misc
+      </div>
+      <div class="error" id="error"></div>
+    </div>
+    <script>
+  // Queue logic (stabilized): always request earliest unprocessed rows
+  // Instead of incrementally appending, we refresh the queue so the first
+  // element is always the current earliest (stable ordering) and the rest are prefetched.
+  let queue = [];
+  let queueSize = 10; // number of rows to request each refresh (1 current + prefetched)
+  let loading = false;
+  let pendingDecisions = []; // Batched decisions to send
+  let processingBatch = false;
+        function setStatus(t){ document.getElementById('status').textContent = t; }
+        function setError(t){ document.getElementById('error').textContent = t || ''; }
+        function render(item){
+          setError('');
+          if (!item || item.done){
+            setStatus('All done — no more rows.');
+            document.getElementById('img').src = '';
+            document.getElementById('meta').textContent = '';
+            return;
+          }
+          const img = document.getElementById('img');
+          img.src = item.url || '';
+          img.onerror = () => setError('Failed to load image from URL. You can Reject or Skip.');
+          const meta = document.getElementById('meta');
+          meta.textContent = [
+            `Remaining: ${item.remaining} (Queue: ${queue.length})`,
+            `Row: ${item.rowIndex}`,
+            `URL: ${item.url || '(empty)'}`
+          ].join('\n');
+          setStatus('Use A/R/S or the buttons to decide.');
+        }
+        function fillQueue(force = false){
+          if (loading) return;
+            // We refresh when forced OR when we have less than 2 items (current + at least one lookahead)
+          if (!force && queue.length > 1 && queue.length >= Math.min(queueSize, 2)) return;
+          loading = true;
+          google.script.run
+            .withSuccessHandler(items => {
+              loading = false;
+              // Replace entire queue ensuring stable earliest-first ordering from server
+              queue = (items || []).filter(it => !it.done);
+              if (queue.length === 0){
+                render({done:true});
+              } else {
+                render(queue[0]);
+              }
+            })
+            .withFailureHandler(err => { setError(String(err)); loading = false; })
+            .getNextItems(queueSize);
+        }
+        // Process decisions in batches for better performance
+        function processPendingDecisions() {
+          if (processingBatch || pendingDecisions.length === 0) return;
+          processingBatch = true;
+          const batch = pendingDecisions.splice(0, Math.min(5, pendingDecisions.length)); // Process up to 5 at once
+          // Process each decision in the batch
+          let completed = 0;
+          batch.forEach(decision => {
+            google.script.run
+              .withSuccessHandler(res => {
+                completed++;
+                if (!res || res.ok === false) {
+                  setError(`Failed to process ${decision.decision}: ${res?.message || 'Unknown error'}`);
+                }
+                // When all in batch are done, continue processing
+                if (completed === batch.length) {
+                  processingBatch = false;
+                  // Process more if there are pending decisions
+                  setTimeout(processPendingDecisions, 100);
+                }
+              })
+              .withFailureHandler(err => {
+                completed++;
+                setError(`Error processing ${decision.decision}: ${String(err)}`);
+                if (completed === batch.length) {
+                  processingBatch = false;
+                  setTimeout(processPendingDecisions, 100);
+                }
+              })
+              .markDecision(decision.rowIndex, decision.decision, decision.rejectionType);
+          });
+        }
+        function next(){
+          if (queue.length > 0) queue.shift(); // drop processed head
+          if (queue.length === 0){
+            // Force a full refresh so we always get the next earliest row(s)
+            fillQueue(true);
+            return;
+          }
+          // Render new head
+          render(queue[0]);
+          // Opportunistic refresh if our prefetched buffer is low
+          if (queue.length < Math.ceil(queueSize * 0.4)) fillQueue(true);
+        }
+        function decide(decision, rejectionType = ''){
+          const current = queue[0];
+          if (!current || current.done) return;
+          // Hide reject options after selection
+          if (decision === 'reject') {
+            document.getElementById('rejectOptions').classList.remove('show');
+          }
+          // Add to batch queue for processing
+          pendingDecisions.push({
+            rowIndex: current.rowIndex,
+            decision: decision,
+            rejectionType: rejectionType
+          });
+          // IMMEDIATELY show next image for responsive feel
+          next();
+          // Process decisions in background
+          processPendingDecisions();
+        }
+        function toggleRejectOptions() {
+          const rejectOptions = document.getElementById('rejectOptions');
+          rejectOptions.classList.toggle('show');
+        }
+        document.addEventListener('keydown', (e) => {
+          const k = (e.key || '').toLowerCase();
+          if (k === 'a'){ decide('approve'); e.preventDefault(); }
+          if (k === 'r'){ toggleRejectOptions(); e.preventDefault(); }
+          if (k === 's'){ decide('skip'); e.preventDefault(); }
+          // Rejection type shortcuts
+          if (k === '1'){ decide('reject', 'Label Obscured'); e.preventDefault(); }
+          if (k === '2'){ decide('reject', 'Already In Emu'); e.preventDefault(); }
+          if (k === '3'){ decide('reject', 'Scarce Info'); e.preventDefault(); }
+          if (k === '4'){ decide('reject', 'ReImage'); e.preventDefault(); }
+          if (k === '5'){ decide('reject', 'Misc'); e.preventDefault(); }
+        });
+        // Initial load
+        fillQueue();
+    </script>
+  </body>
+</html>
