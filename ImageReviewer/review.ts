@@ -112,6 +112,80 @@ function getNextItems(count) {
   return items;
 }
 /**
+ * Process multiple decisions in one batch for better performance.
+ * Processes all approve/reject decisions first, then skip decisions.
+ * This ensures all items are moved to their correct sheets before loading next batch.
+ */
+function processBatchDecisions(decisions) {
+  const ss = SpreadsheetApp.getActive();
+  const q = ss.getSheetByName(QUEUE_SHEET);
+  const approvedSheet = ss.getSheetByName(APPROVED_SHEET);
+  const rejectedSheet = ss.getSheetByName(REJECTED_SHEET);
+  const lastCol = q.getLastColumn();
+  
+  let processed = 0;
+  let errors = [];
+  
+  // Sort decisions: approve/reject first (delete from top), then skips (move to bottom)
+  const sortedDecisions = decisions.sort((a, b) => {
+    if (a.decision === 'skip' && b.decision !== 'skip') return 1;
+    if (a.decision !== 'skip' && b.decision === 'skip') return -1;
+    // For approve/reject, process in reverse row order (higher rows first) to avoid index shifting
+    return b.rowIndex - a.rowIndex;
+  });
+  
+  try {
+    // Process each decision
+    for (const decision of sortedDecisions) {
+      try {
+        if (q.getLastRow() < decision.rowIndex) {
+          errors.push(`Row ${decision.rowIndex} no longer exists`);
+          continue;
+        }
+        
+        const rowVals = q.getRange(decision.rowIndex, 1, 1, lastCol).getValues()[0];
+        
+        if (decision.decision === 'skip') {
+          // Move to end of queue
+          q.deleteRow(decision.rowIndex);
+          q.appendRow(rowVals);
+        } else {
+          // Move to appropriate target sheet
+          const targetSheet = decision.decision === 'approve' ? approvedSheet : rejectedSheet;
+          
+          // Add rejection type if rejecting
+          if (decision.decision === 'reject' && decision.rejectionType) {
+            rowVals.push(decision.rejectionType);
+          }
+          
+          targetSheet.appendRow(rowVals);
+          q.deleteRow(decision.rowIndex);
+        }
+        
+        processed++;
+      } catch (err) {
+        errors.push(`Error processing row ${decision.rowIndex}: ${err.message}`);
+      }
+    }
+    
+    return { 
+      ok: true, 
+      processed: processed, 
+      total: decisions.length,
+      errors: errors.length > 0 ? errors : null
+    };
+    
+  } catch (err) {
+    return { 
+      ok: false, 
+      message: `Batch processing failed: ${err.message}`,
+      processed: processed,
+      total: decisions.length
+    };
+  }
+}
+
+/**
  * Move a row based on decision and delete from "to review".
  * decision: 'approve' | 'reject' | 'skip'
  * rejectionType: optional rejection type for rejected items
@@ -147,4 +221,3 @@ function markDecision(rowIndex, decision, rejectionType = '') {
 
 
 
-10:41
